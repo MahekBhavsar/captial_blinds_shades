@@ -1,0 +1,25 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null && firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Public read access to all images
+    match /{allPaths=**} {
+      allow read: if true;
+    }
+
+    // Allow users to upload artwork for quotes, but no reading/deleting
+    match /quote_artwork/{fileName} {
+      allow write: if request.resource.size < 20 * 1024 * 1024 // 20MB limit
+                   && request.resource.contentType.matches('image/.*|application/pdf|application/postscript');
+      allow read: if isAdmin();
+    }
+    
+    // Admins can manage all files
+    match /portfolio/{fileName} {
+      allow write, delete: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,362 @@
+/* =============================================
+   NAVBAR — Clean, deduplicated, mobile-first
+   ============================================= */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+.header.scrolled {
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  border-bottom-color: rgba(226, 232, 240, 0.9);
+}
+
+@media (prefers-color-scheme: dark) {
+  .header {
+    background: rgba(8, 15, 26, 0.9);
+    border-bottom-color: rgba(45, 156, 219, 0.1);
+  }
+  .header.scrolled {
+    background: rgba(8, 15, 26, 0.98);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* ---- NAV WRAPPER ---- */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.75rem clamp(1rem, 4vw, 2rem);
+  gap: 1.5rem;
+}
+
+/* ---- LOGO ---- */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  margin-left: -5rem; /* Pull text much closer to the image to reduce empty space */
+  z-index: 2;
+}
+
+@keyframes flowColor {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.logoMain {
+  font-family: var(--font-poppins);
+  font-weight: 800;
+  font-size: 1.8rem; /* Increased font size */
+  background: linear-gradient(
+    270deg, 
+    #1e293b, /* Navy */
+    #d81b60, /* Magenta */
+    #f2c94c, /* Yellow */
+    #2d9cdb, /* Cyan/Blue */
+    #1e293b  /* Navy loop */
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.03em;
+  transition: all 0.3s ease;
+  display: inline-block;
+  animation: flowColor 6s ease infinite;
+}
+
+.logoMain:hover {
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.15));
+  transform: translateY(-1px);
+}
+
+.logoAmp {
+  /* Inherit the flow from the parent */
+  font-weight: 900;
+}
+
+.logoTag {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+/* ---- DESKTOP NAV LINKS ---- */
+.links {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.link {
+  position: relative;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-sm);
+  transition: color 0.2s ease, background 0.2s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.link:hover {
+  color: var(--color-primary);
+  background: rgba(45, 156, 219, 0.08);
+}
+
+.activeLink {
+  color: var(--color-primary) !important;
+  background: rgba(45, 156, 219, 0.1);
+  font-weight: 600;
+}
+
+.activeDot {
+  width: 5px;
+  height: 5px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ---- DESKTOP ACTIONS ---- */
+.actions {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: #25d366;
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.whatsapp:hover {
+  background: rgba(37, 211, 102, 0.1);
+  border-color: #25d366;
+  transform: translateY(-1px);
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(194, 24, 139, 0.3);
+  white-space: nowrap;
+}
+
+.ctaBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(194, 24, 139, 0.5);
+}
+
+/* ---- HAMBURGER (mobile) ---- */
+.hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--foreground);
+  cursor: pointer;
+  padding: 0.45rem;
+  width: 38px;
+  height: 38px;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.hamburger:hover {
+  background: rgba(45, 156, 219, 0.08);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ---- MOBILE MENU ---- */
+.mobileMenu {
+  overflow: hidden;
+  background: var(--background);
+  border-top: 1px solid var(--border);
+}
+
+.mobileMenuInner {
+  padding: 1rem clamp(1rem, 4vw, 2rem) 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.825rem 1rem;
+  color: var(--muted);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.mobileLink:hover {
+  color: var(--color-primary);
+  background: rgba(45, 156, 219, 0.08);
+}
+
+.activeMobileLink {
+  color: var(--color-primary) !important;
+  background: rgba(45, 156, 219, 0.1);
+  font-weight: 600;
+}
+
+.mobileDot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+.mobileCtas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.mobileWhatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #25d366;
+  border: 1.5px solid rgba(37, 211, 102, 0.4);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.mobileWhatsapp:hover {
+  background: rgba(37, 211, 102, 0.08);
+}
+
+.mobileCta {
+  display: block;
+  padding: 0.875rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  color: white;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(194, 24, 139, 0.3);
+}
+
+/* ---- FLOATING WHATSAPP ---- */
+.floatingWhatsapp {
+  position: fixed;
+  bottom: 1.75rem;
+  right: 1.75rem;
+  z-index: 999;
+  width: 54px;
+  height: 54px;
+  background: #25d366;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.floatingWhatsapp:hover {
+  transform: scale(1.12) translateY(-2px);
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.6);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+  .links,
+  .actions {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .logoMain {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    width: 100px !important;
+    height: auto !important;
+  }
+
+  .logoText {
+    margin-left: -0.5rem;
+  }
+
+  .logoMain {
+    font-size: 1.05rem;
+  }
+
+  .logoTag {
+    display: none;
+  }
+}

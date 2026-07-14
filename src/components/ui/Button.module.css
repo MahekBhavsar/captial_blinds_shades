@@ -1,0 +1,96 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: var(--font-inter);
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+/* Shimmer effect on hover */
+.button::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.18);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+.button:hover::after {
+  left: 125%;
+}
+
+/* ---- VARIANTS ---- */
+.primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #1a7ab8 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(45, 156, 219, 0.35);
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(45, 156, 219, 0.5);
+}
+
+.primary:active {
+  transform: translateY(0);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.secondary:hover {
+  background: rgba(45, 156, 219, 0.08);
+  transform: translateY(-2px);
+  border-color: var(--color-primary-dark);
+}
+
+.accent {
+  background: linear-gradient(135deg, var(--color-accent) 0%, #c7881a 100%);
+  color: #1a1a1a;
+  box-shadow: 0 4px 16px rgba(230, 166, 35, 0.4);
+}
+
+.accent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(230, 166, 35, 0.55);
+}
+
+.outline-light {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.outline-light:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+/* Disabled state */
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
