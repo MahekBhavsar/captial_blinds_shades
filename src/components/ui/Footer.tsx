@@ -55,13 +55,13 @@ export function Footer() {
             </div>
             <div className={styles.logoText}>
               <span className={styles.logoMain}>
-                Capital Print <span className={styles.logoAmp}>&</span> Sign
+                Capital Blinds <span className={styles.logoAmp}>&</span> Shades
               </span>
             </div>
           </Link>
-          <p className={styles.brandTagline}>We Print. You Shine.</p>
+          <p className={styles.brandTagline}>Style Your Space. Elevate Your Living.</p>
           <p className={styles.brandDesc}>
-            Elevating Australian brands with premium printing, custom signage, and expert installations.
+            Premium quality blinds and shades, custom made for comfort, privacy and style.
           </p>
           <div className={styles.socialLinks}>
             <Link href={settings?.facebookUrl || "https://facebook.com"} target="_blank" aria-label="Facebook" className={styles.socialLink}>
@@ -96,12 +96,12 @@ export function Footer() {
             </li>
             <li className={styles.contactItem}>
               <Phone size={15} className={styles.contactIcon} />
-              <Link href={`tel:${settings?.phone?.replace(/\s/g, '') || "0481369018"}`}>{settings?.phone || "0481 369 018"}</Link>
+              <Link href={`tel:${settings?.phone?.replace(/\s/g, '') || "0414336036"}`}>{settings?.phone || "0414 336 036"}</Link>
             </li>
             <li className={styles.contactItem}>
               <Mail size={15} className={styles.contactIcon} />
-              <Link href={`mailto:${settings?.email || "sales@capitalprintandsign.com.au"}`}>
-                {settings?.email || "sales@capitalprintandsign.com.au"}
+              <Link href={`mailto:${settings?.email || "sales@cbs.com.au"}`}>
+                {settings?.email || "sales@cbs.com.au"}
               </Link>
             </li>
           </ul>
@@ -110,7 +110,7 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className={styles.bottom}>
-        <p>&copy; {new Date().getFullYear()} Capital Print &amp; Sign Pty Ltd. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Capital Blinds &amp; Shades Pty Ltd. All rights reserved.</p>
       </div>
     </footer>
   );

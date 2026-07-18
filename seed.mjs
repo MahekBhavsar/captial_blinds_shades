@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, deleteDoc, addDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBXXlsfqqnpVBatj5qWEHn0y2xNMON8Ut4",
-  authDomain: "cprint-2bd05.firebaseapp.com",
-  projectId: "cprint-2bd05",
-  storageBucket: "cprint-2bd05.firebasestorage.app",
-  messagingSenderId: "1065821483747",
-  appId: "1:1065821483747:web:eca6bc9122acb8db81cbd6",
+  apiKey: "AIzaSyBjI6bybr1jxXNDNIi2ilOSnAxiA5cEHh8",
+  authDomain: "captialblindsshades.firebaseapp.com",
+  projectId: "captialblindsshades",
+  storageBucket: "captialblindsshades.firebasestorage.app",
+  messagingSenderId: "754386245463",
+  appId: "1:754386245463:web:34337440ffeb115f151012",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -23,10 +23,11 @@ async function run() {
   }
 
   const newServices = [
-    { title: "Flyers & Brochures", desc: "High-impact marketing materials printed to perfection to promote your business effectively.", importantWords: ["High-impact marketing materials"], iconName: "ImageIcon", color: "#2d9cdb", order: 1 },
-    { title: "Posters", desc: "Vibrant, sharp posters in any size for retail promotions, events, and in-store advertising.", importantWords: ["Vibrant, sharp", "retail promotions"], iconName: "FileImage", color: "#C2188B", order: 2 },
-    { title: "Business Cards", desc: "Premium quality business cards in a range of finishes — matte, gloss, soft-touch, and foil.", importantWords: ["Premium quality", "matte, gloss, soft-touch, and foil"], iconName: "Printer", color: "#E6A623", order: 3 },
-    { title: "Graphic Design", desc: "Our in-house creative team designs stunning artwork that perfectly captures your brand identity.", importantWords: ["in-house creative team", "stunning artwork"], iconName: "LayoutPanelLeft", color: "#E6A623", order: 4 }
+    { title: "Roller Blinds", desc: "Sleek and modern roller blinds designed to provide optimal light control and privacy.", importantWords: ["Sleek and modern", "light control and privacy"], iconName: "PanelTop", color: "#001F3F", order: 1 },
+    { title: "Zebra Blinds", desc: "Innovative dual-layered fabrics that offer a balance between sheer and blackout.", importantWords: ["dual-layered fabrics", "balance between sheer and blackout"], iconName: "LayoutPanelLeft", color: "#D4AF37", order: 2 },
+    { title: "Venetian Blinds", desc: "Classic timber and aluminium venetians to control light with a timeless look.", importantWords: ["timber and aluminium", "timeless look"], iconName: "AppWindow", color: "#001F3F", order: 3 },
+    { title: "Plantation Shutters", desc: "Premium quality shutters crafted for elegance, durability, and excellent insulation.", importantWords: ["Premium quality shutters", "elegance, durability"], iconName: "Store", color: "#D4AF37", order: 4 },
+    { title: "Expert Installation", desc: "Our experienced fitters ensure your blinds and shutters are installed perfectly the first time.", importantWords: ["experienced fitters", "installed perfectly"], iconName: "HardHat", color: "#001F3F", order: 5 }
   ];
 
   for (const svc of newServices) {

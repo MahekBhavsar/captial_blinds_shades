@@ -14,8 +14,10 @@ import { useEffect } from "react";
 import type { SettingsDocument } from "@/lib/schema";
 
 const servicesList = [
-  "Flyers & Brochures", "Shopfront Signs", "Business Cards", 
-  "Posters", "Stickers & Labels", "Graphic Design"
+  "Roller Blinds", "Zebra Blinds", "Venetian Blinds", 
+  "Vertical Blinds", "Roman Blinds", "Panel Blinds", 
+  "Sheer Curtains", "Blockout Curtains", "Verishade Blinds", 
+  "Plantation Shutters", "Motorised Solutions"
 ];
 
 export default function ContactPage() {
@@ -109,7 +111,7 @@ export default function ContactPage() {
               <div className={styles.iconWrapper}><Phone size={22} /></div>
               <div className={styles.detailText}>
                 <h3>Call Us</h3>
-                <p><a href={`tel:${settings?.phone?.replace(/\s/g, '') || "0481369018"}`}>{settings?.phone || "0481 369 018"}</a></p>
+                <p><a href={`tel:${settings?.phone?.replace(/\s/g, '') || "0414336036"}`}>{settings?.phone || "0414 336 036"}</a></p>
                 <p>Mon – Fri, 9am – 5pm AEST</p>
               </div>
             </div>
@@ -118,7 +120,7 @@ export default function ContactPage() {
               <div className={styles.iconWrapper}><Mail size={22} /></div>
               <div className={styles.detailText}>
                 <h3>Email Us</h3>
-                <p><a href={`mailto:${settings?.email || "sales@capitalprintandsign.com.au"}`}>{settings?.email || "sales@capitalprintandsign.com.au"}</a></p>
+                <p><a href={`mailto:${settings?.email || "sales@cbs.com.au"}`}>{settings?.email || "sales@cbs.com.au"}</a></p>
                 <p>We reply within 24 hours</p>
               </div>
             </div>
@@ -127,7 +129,7 @@ export default function ContactPage() {
               <div className={styles.iconWrapper}><Globe size={22} /></div>
               <div className={styles.detailText}>
                 <h3>Website</h3>
-                <p><a href="https://www.capitalprintandsign.com.au" target="_blank" rel="noopener noreferrer">www.capitalprintandsign.com.au</a></p>
+                <p><a href="https://www.cbs.com.au" target="_blank" rel="noopener noreferrer">www.cbs.com.au</a></p>
               </div>
             </div>
           </motion.div>

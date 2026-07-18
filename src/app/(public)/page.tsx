@@ -28,20 +28,20 @@ const staggerContainer = {
 };
 
 const whyChooseUs = [
-  { icon: <BadgeCheck size={22} />, title: "Premium Quality Materials", desc: "Only the finest vinyls, inks and substrates used on every job." },
-  { icon: <Clock size={22} />, title: "Fast Turnaround", desc: "Standard orders ready in 3–5 business days, rush available." },
-  { icon: <ShieldCheck size={22} />, title: "Satisfaction Guaranteed", desc: "We don't rest until you're 100% happy with the result." },
-  { icon: <Award size={22} />, title: "Professional Installation", desc: "Expert fitters who get it right the first time, every time." },
-  { icon: <Users2 size={22} />, title: "Creative Designers", desc: "Our in-house team brings your brand vision to life." },
-  { icon: <Zap size={22} />, title: "Local Australian Support", desc: "Real people, right here in Canberra. Always reachable." },
+  { icon: <BadgeCheck size={22} />, title: "Premium Quality Materials", desc: "Only the finest fabrics, woods, and materials used on every window furnishing." },
+  { icon: <Clock size={22} />, title: "Fast Turnaround", desc: "Custom blinds ready and installed quickly without compromising quality." },
+  { icon: <ShieldCheck size={22} />, title: "Satisfaction Guaranteed", desc: "We don't rest until you're 100% happy with your new living space." },
+  { icon: <Award size={22} />, title: "Professional Installation", desc: "Expert fitters who ensure a flawless finish, every time." },
+  { icon: <Users2 size={22} />, title: "Expert Advice", desc: "Our team helps you choose the perfect style for your lifestyle." },
+  { icon: <Zap size={22} />, title: "Local Australian Support", desc: "Real people, right here. Always reachable for support." },
 ];
 
 const faqs = [
-  { q: "What artwork formats do you accept?", a: "We accept PDF, AI, EPS, PSD, SVG, JPG, and PNG files in high resolution (300 DPI or higher). For vector formats like AI and EPS, all fonts must be outlined." },
-  { q: "Can you design my artwork?", a: "Absolutely! Our creative team offers full graphic design services from concept to final artwork. We'll work with you to capture your brand identity perfectly." },
-  { q: "How long does printing take?", a: "Standard orders take 3–5 business days. Rush services (1–2 days) are available for most products. Large format or complex installation jobs may require additional time." },
-  { q: "Do you install signage?", a: "Yes — we offer professional installation services across Canberra and surrounding regions. Our experienced team handles everything from shopfront signs to vehicle wraps." },
-  { q: "What areas do you service?", a: "We're based in Mitchell, ACT and service the greater Canberra region, including Queanbeyan, Fyshwick, and surrounding NSW areas. Delivery is available Australia-wide." },
+  { q: "What types of blinds do you offer?", a: "We offer a wide range including Roller Blinds, Zebra Blinds, Venetian Blinds, Vertical Blinds, Roman Blinds, Panel Blinds, and more." },
+  { q: "Do you offer motorised solutions?", a: "Absolutely! We provide state-of-the-art motorised solutions for almost all of our blinds and shades for ultimate convenience." },
+  { q: "How long does manufacturing take?", a: "Custom orders typically take 2-4 weeks depending on the material and complexity of the order." },
+  { q: "Do you install the blinds?", a: "Yes — we offer professional installation services to ensure a perfect fit and flawless finish every time." },
+  { q: "Do you provide free measurements and quotes?", a: "Yes! We offer a free measure and quote service to help you make the best decision for your space." },
 ];
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -150,16 +150,16 @@ export default function Home() {
 
           console.log("Seeding 10 new testimonials...");
           const fakeReviews = [
-            { clientName: "David M.", companyName: "Retail Group", rating: 5, content: "The best printing service in Canberra. Our shopfront looks amazing!", status: "Approved", featured: true, createdAt: new Date() },
-            { clientName: "Sarah L.", companyName: "Logistics Pro", rating: 5, content: "Capital Print & Sign delivered our fleet wraps ahead of schedule. The quality is exceptional.", status: "Approved", featured: true, createdAt: new Date() },
-            { clientName: "Tom H.", companyName: "Event Co.", rating: 5, content: "We needed urgent banners for an event and they delivered within 24 hours. Lifesavers!", status: "Approved", featured: true, createdAt: new Date() },
-            { clientName: "Jessica K.", companyName: "K-Dining", rating: 5, content: "The 3D illuminated signs they installed for our restaurant have doubled our foot traffic.", status: "Approved", featured: true, createdAt: new Date() },
-            { clientName: "Michael R.", companyName: "Tech Solutions", rating: 4, content: "Professional, fast, and highly communicative. The window frosting looks perfect.", status: "Approved", featured: true, createdAt: new Date() },
-            { clientName: "Amanda B.", companyName: "Corporate Inc", rating: 5, content: "We've used them for all our corporate printing for 5 years. Always consistent.", status: "Approved", featured: true, createdAt: new Date() },
-            { clientName: "Chris P.", companyName: "Design Agency", rating: 5, content: "Their design team helped us rebrand entirely. The new signage is world-class.", status: "Approved", featured: true, createdAt: new Date() },
-            { clientName: "John D.", companyName: "BuildIt Construction", rating: 5, content: "Highest quality mesh banners we've ever used on our construction sites. Very durable.", status: "Approved", featured: true, createdAt: new Date() },
-            { clientName: "Lisa W.", companyName: "W-Real Estate", rating: 5, content: "Installation was completely hassle-free. They worked around our business hours.", status: "Approved", featured: true, createdAt: new Date() },
-            { clientName: "Mark T.", companyName: "Startup Co.", rating: 5, content: "From business cards to huge outdoor signs, they handle it all with perfect attention to detail.", status: "Approved", featured: true, createdAt: new Date() }
+            { clientName: "David M.", companyName: "Homeowner", rating: 5, content: "The best window furnishings in town. Our living room looks amazing!", status: "Approved", featured: true, createdAt: new Date() },
+            { clientName: "Sarah L.", companyName: "Interior Designer", rating: 5, content: "Capital Blinds & Shades delivered custom shutters ahead of schedule. Exceptional quality.", status: "Approved", featured: true, createdAt: new Date() },
+            { clientName: "Tom H.", companyName: "Property Developer", rating: 5, content: "We needed blackout curtains for a whole building and they delivered flawlessly.", status: "Approved", featured: true, createdAt: new Date() },
+            { clientName: "Jessica K.", companyName: "Homeowner", rating: 5, content: "The motorised zebra blinds have transformed how we use our space. Very convenient.", status: "Approved", featured: true, createdAt: new Date() },
+            { clientName: "Michael R.", companyName: "Office Manager", rating: 4, content: "Professional, fast, and highly communicative. The office roller blinds look perfect.", status: "Approved", featured: true, createdAt: new Date() },
+            { clientName: "Amanda B.", companyName: "Homeowner", rating: 5, content: "We've used them for our entire home. Always consistent and beautiful.", status: "Approved", featured: true, createdAt: new Date() },
+            { clientName: "Chris P.", companyName: "Architect", rating: 5, content: "Their advice on sheer curtains helped us complete the modern look of our project.", status: "Approved", featured: true, createdAt: new Date() },
+            { clientName: "John D.", companyName: "Homeowner", rating: 5, content: "Highest quality plantation shutters we've ever seen. Very durable and stylish.", status: "Approved", featured: true, createdAt: new Date() },
+            { clientName: "Lisa W.", companyName: "Real Estate Agent", rating: 5, content: "Installation was completely hassle-free. They are my go-to recommendation.", status: "Approved", featured: true, createdAt: new Date() },
+            { clientName: "Mark T.", companyName: "Homeowner", rating: 5, content: "From roman blinds to outdoor shades, they handle it all with perfect attention to detail.", status: "Approved", featured: true, createdAt: new Date() }
           ];
           for (const review of fakeReviews) {
             await addDoc(collections.testimonials, review);
@@ -181,7 +181,7 @@ export default function Home() {
         const svcSnapshot = await getDocs(svcQuery);
         const allServices = svcSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as ServiceDocument }));
         
-        const mainServiceTitles = ["Flyers & Brochures", "Custom Design", "Professional Printing", "Expert Installation"];
+        const mainServiceTitles = ["Roller Blinds", "Venetian Blinds", "Plantation Shutters", "Expert Installation"];
         const filteredServices = allServices.filter(s => mainServiceTitles.includes(s.title));
         
         setServices(filteredServices);
@@ -236,18 +236,18 @@ export default function Home() {
         >
           <motion.div variants={fadeUp} className={styles.heroBadge}>
             <span className={styles.heroBadgeDot} />
-            Australia&apos;s Premium Print &amp; Sign Partner
+            Australia&apos;s Premium Window Furnishing Partner
           </motion.div>
 
           <motion.h1 variants={fadeUp} className={styles.heroTitle}>
-            Your Brand Deserves{" "}
-            <span className={styles.heroGradientText}>to Be Seen.</span>
+            Style Your Space.<br/>
+            <span className={styles.heroGradientText}>Elevate Your Living.</span>
           </motion.h1>
 
           <motion.p variants={fadeUp} className={styles.heroSubtitle}>
-            Capital Print &amp; Sign delivers premium printing, signage, vehicle wraps,
-            branding, and installation services that help Australian businesses
-            stand out with confidence.
+            Capital Blinds &amp; Shades delivers premium quality blinds, shutters,
+            and custom window furnishings that help Australian homes stand out with
+            comfort, privacy and style.
           </motion.p>
 
           <motion.div variants={fadeUp} className={styles.buttonGroup}>
@@ -265,9 +265,9 @@ export default function Home() {
           className={styles.stats}
         >
           {[
-            { number: "1000+", label: "Designs Delivered" },
-            { number: "250+", label: "Clients" },
-            { number: "2+", label: "Years" },
+            { number: "1000+", label: "Windows Fitted" },
+            { number: "500+", label: "Happy Clients" },
+            { number: "5+", label: "Years Experience" },
             { number: "100%", label: "Satisfaction" },
           ].map((stat, i) => (
             <motion.div key={i} variants={fadeUp} className={styles.statItem}>
@@ -291,13 +291,13 @@ export default function Home() {
             <span className={styles.sectionBadge}>Our Story</span>
             <h2 className={styles.sectionTitleLeft}>Crafting Impressions That Last.</h2>
             <p className={styles.aboutTextLeft}>
-              At Capital Print &amp; Sign, we don't just print — we bring brands to life. From sleek
-              business cards to massive shopfront transformations and eye-catching vehicle wraps, we
-              combine premium quality materials with cutting-edge technology.
+              At Capital Blinds &amp; Shades, we don't just furnish windows — we elevate living spaces. From sleek
+              roller blinds to elegant plantation shutters and smart motorised solutions, we combine
+              premium quality materials with innovative designs.
             </p>
             <p className={styles.aboutTextLeft} style={{ marginTop: "1rem" }}>
-              Whether you are launching a new business or refreshing your established brand, our
-              experienced creative team guarantees exceptional results, fast turnaround times, and a
+              Whether you are updating a single room or renovating your entire home, our
+              experienced team guarantees exceptional results, professional advice, and a
               flawless finish every single time.
             </p>
             <div style={{ marginTop: "2rem" }}>
@@ -314,11 +314,11 @@ export default function Home() {
           >
             <img
               src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80"
-              alt="Capital Print Team at work"
+              alt="Capital Blinds Team at work"
               className={styles.aboutImage}
             />
             <div className={styles.aboutExperienceBadge}>
-              <span className={styles.experienceNumber}>2+</span>
+              <span className={styles.experienceNumber}>5+</span>
               <span className={styles.experienceText}>Years of<br />Excellence</span>
             </div>
           </motion.div>
@@ -433,7 +433,7 @@ export default function Home() {
         <div className={styles.sectionInner}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.1 }} variants={fadeUp}>
             <span className={styles.sectionBadgeCentered}>Why Us</span>
-            <h2 className={styles.sectionTitle}>Why Choose Capital Print &amp; Sign</h2>
+            <h2 className={styles.sectionTitle}>Why Choose Capital Blinds &amp; Shades</h2>
             <p className={styles.sectionSubtitle}>
               We go beyond printing — we deliver a complete brand experience.
             </p>
@@ -470,8 +470,8 @@ export default function Home() {
 
           <div className={styles.processGrid}>
             {[
-              "Consultation", "Design", "Proof Approval",
-              "Production", "Quality Check", "Installation", "Delivery & Support"
+              "Consultation", "Measurement", "Style Selection",
+              "Custom Manufacturing", "Quality Check", "Professional Installation", "Final Reveal"
             ].map((step, i) => (
               <motion.div
                 key={i}
@@ -547,7 +547,7 @@ export default function Home() {
           >
             <span className={styles.sectionBadge} style={{ background: "rgba(255,255,255,0.1)", color: "#fff", borderColor: "rgba(255,255,255,0.2)" }}>Feedback</span>
             <h2>We'd Love to Hear From You</h2>
-            <p>Your experience matters to us. Whether it's a massive fleet wrap or a simple batch of business cards, we're constantly striving to deliver world-class quality. Drop us a review and let us know how we did!</p>
+            <p>Your experience matters to us. Whether it's a single roller blind or a complete smart home motorised solution, we're constantly striving to deliver world-class quality. Drop us a review and let us know how we did!</p>
 
             <div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>
               <div style={{ background: "rgba(255,255,255,0.05)", padding: "1rem", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.1)" }}>

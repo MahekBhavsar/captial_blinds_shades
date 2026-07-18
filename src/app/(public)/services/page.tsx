@@ -177,8 +177,8 @@ export default function ServicesPage() {
           visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } }
         }} className={styles.heroContent}>
           <span className={styles.badge}>Our Services</span>
-          <h1>Premium Printing &amp; Signage Solutions</h1>
-          <p>From vehicle wraps to shopfront signs — we bring your brand to life with exceptional quality and craftsmanship.</p>
+          <h1>Premium Blinds &amp; Shades Solutions</h1>
+          <p>From custom roller blinds to elegant plantation shutters — we elevate your living space with exceptional quality and craftsmanship.</p>
           <Link href="/contact" className={styles.heroBtn}>Get a Free Quote</Link>
         </motion.div>
       </section>

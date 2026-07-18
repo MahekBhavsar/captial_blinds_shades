@@ -60,7 +60,7 @@ export function Navbar() {
             />
             <div className={styles.logoText}>
               <span className={styles.logoMain}>
-                Capital Print <span className={styles.logoAmp}>&</span> Sign
+                Capital Blinds <span className={styles.logoAmp}>&</span> Shades
               </span>
             </div>
           </Link>
@@ -84,7 +84,7 @@ export function Navbar() {
           {/* Desktop Actions */}
           <div className={styles.actions}>
             <Link
-              href={`https://wa.me/${settings?.whatsapp || "61481369018"}`}
+              href={`https://wa.me/${settings?.whatsapp || "61414336036"}`}
               target="_blank"
               className={styles.whatsapp}
               aria-label="WhatsApp"
@@ -162,7 +162,7 @@ export function Navbar() {
                   className={styles.mobileCtas}
                 >
                   <Link
-                    href={`https://wa.me/${settings?.whatsapp || "61481369018"}`}
+                    href={`https://wa.me/${settings?.whatsapp || "61414336036"}`}
                     target="_blank"
                     className={styles.mobileWhatsapp}
                   >
@@ -178,7 +178,7 @@ export function Navbar() {
 
       {/* Floating WhatsApp Button */}
       <Link
-        href={`https://wa.me/${settings?.whatsapp || "61481369018"}`}
+        href={`https://wa.me/${settings?.whatsapp || "61414336036"}`}
         target="_blank"
         className={styles.floatingWhatsapp}
         aria-label="Chat on WhatsApp"

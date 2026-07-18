@@ -7,13 +7,14 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBXXlsfqqnpVBatj5qWEHn0y2xNMON8Ut4",
-  authDomain: "cprint-2bd05.firebaseapp.com",
-  projectId: "cprint-2bd05",
-  storageBucket: "cprint-2bd05.firebasestorage.app",
-  messagingSenderId: "1065821483747",
-  appId: "1:1065821483747:web:eca6bc9122acb8db81cbd6",
-  measurementId: "G-07QPJ8C3TK"
+  apiKey: "AIzaSyBjI6bybr1jxXNDNIi2ilOSnAxiA5cEHh8",
+  authDomain: "captialblindsshades.firebaseapp.com",
+  databaseURL: "https://captialblindsshades-default-rtdb.firebaseio.com",
+  projectId: "captialblindsshades",
+  storageBucket: "captialblindsshades.firebasestorage.app",
+  messagingSenderId: "754386245463",
+  appId: "1:754386245463:web:34337440ffeb115f151012",
+  measurementId: "G-1MVSQMCX8G"
 };
 
 // Initialize Firebase

@@ -69,7 +69,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0a192f" }}>
         <div style={{ background: "#f8fafc", padding: "2rem", borderRadius: "12px", border: "1px solid #e2e8f0", width: "100%", maxWidth: "400px" }}>
           <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-            <h1 style={{ fontFamily: "var(--font-poppins)", color: "black", marginBottom: "0.5rem" }}>Admin Login</h1>
+            <h1 style={{ fontFamily: "var(--font-poppins)", color: "white", marginBottom: "0.5rem" }}>Admin Login</h1>
             <p style={{ color: "#94a3b8" }}>Capital Print & Sign</p>
           </div>
           
