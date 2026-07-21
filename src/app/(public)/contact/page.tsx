@@ -7,16 +7,16 @@ import { QuoteSchema, type QuoteDocument } from "@/lib/schema";
 import { collections, db } from "@/lib/firebase";
 import { addDoc, doc, onSnapshot } from "firebase/firestore";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Phone, Mail, CheckCircle2, ChevronRight, ChevronLeft, Globe } from "lucide-react";
+import { MapPin, Phone, Mail, CheckCircle2, ChevronRight, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import styles from "./page.module.css";
 import { useEffect } from "react";
 import type { SettingsDocument } from "@/lib/schema";
 
 const servicesList = [
-  "Roller Blinds", "Zebra Blinds", "Venetian Blinds", 
-  "Vertical Blinds", "Roman Blinds", "Panel Blinds", 
-  "Sheer Curtains", "Blockout Curtains", "Verishade Blinds", 
+  "Roller Blinds", "Zebra Blinds", "Venetian Blinds",
+  "Vertical Blinds", "Roman Blinds", "Panel Blinds",
+  "Sheer Curtains", "Blockout Curtains", "Verishade Blinds",
   "Plantation Shutters", "Motorised Solutions"
 ];
 
@@ -72,23 +72,19 @@ export default function ContactPage() {
   };
 
   return (
-    <main>
-      {/* Hero Section */}
-      <section className={styles.hero}>
-        <div className={styles.heroOverlay} />
+    <main className={styles.pageWrapper}>
+      <div className={styles.pageHeader}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className={styles.heroContent}
+          transition={{ duration: 0.6 }}
         >
           <span className={styles.badge}>Get in Touch</span>
           <h1>Let's Create Something Extraordinary</h1>
-          <p>Ready to make your business impossible to ignore? Request a free quote today and our expert team will get back to you within 24 hours.</p>
+          <p>Ready to elevate your space? Request a free quote today and our expert team will get back to you within 24 hours.</p>
         </motion.div>
-      </section>
+      </div>
 
-      {/* Main Content Overlapping Hero */}
       <div className={styles.container}>
         {/* Left Info Section */}
         <section className={styles.infoSection}>
@@ -102,7 +98,7 @@ export default function ContactPage() {
               <div className={styles.iconWrapper}><MapPin size={22} /></div>
               <div className={styles.detailText}>
                 <h3>Our Office</h3>
-                <p>{settings?.address || "21 Huddart Court, Mitchell ACT 2911"}</p>
+                <p>21 Huddart Court, Mitchell, ACT 2911</p>
                 <p>Servicing Canberra &amp; Surrounding Regions</p>
               </div>
             </div>
@@ -111,8 +107,8 @@ export default function ContactPage() {
               <div className={styles.iconWrapper}><Phone size={22} /></div>
               <div className={styles.detailText}>
                 <h3>Call Us</h3>
-                <p><a href={`tel:${settings?.phone?.replace(/\s/g, '') || "0414336036"}`}>{settings?.phone || "0414 336 036"}</a></p>
-                <p>Mon – Fri, 9am – 5pm AEST</p>
+                <p>Mitul Maniya: <a href="tel:+61414336936">+61 414 336 936</a></p>
+                <p>Mehul Makarubiya: <a href="tel:+61481369018">+61 481 369 018</a></p>
               </div>
             </div>
 
@@ -120,16 +116,8 @@ export default function ContactPage() {
               <div className={styles.iconWrapper}><Mail size={22} /></div>
               <div className={styles.detailText}>
                 <h3>Email Us</h3>
-                <p><a href={`mailto:${settings?.email || "sales@cbs.com.au"}`}>{settings?.email || "sales@cbs.com.au"}</a></p>
+                <p><a href="mailto:sales@capitalblindandshades.com.au">sales@capitalblindandshades.com.au</a></p>
                 <p>We reply within 24 hours</p>
-              </div>
-            </div>
-
-            <div className={styles.contactCard}>
-              <div className={styles.iconWrapper}><Globe size={22} /></div>
-              <div className={styles.detailText}>
-                <h3>Website</h3>
-                <p><a href="https://www.cbs.com.au" target="_blank" rel="noopener noreferrer">www.cbs.com.au</a></p>
               </div>
             </div>
           </motion.div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Poppins, Playfair_Display, Cinzel } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -13,22 +13,40 @@ const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+  weight: ["600", "700", "800", "900"],
+});
+
 export const metadata: Metadata = {
-  title: "Capital Print & Sign | Premium Printing & Signage in Canberra",
-  description: "Australia's Premium Printing, Signage & Branding Partner. From business cards and brochures to vehicle wraps and shopfront branding. We Print. You Shine.",
-  keywords: ["Printing Services Canberra", "Signage Canberra", "Vehicle Wraps Canberra", "Business Cards Canberra", "Banner Printing Canberra"],
-  icons: {
-    icon: [
-      { url: '/CPS-SecondaryLogo.png?v=1', type: 'image/png' }
-    ]
-  },
+  title: "Capital Blinds and Shades | Custom Window Furnishings, Shutters & Curtains",
+  description: "Australia's premium window furnishings partner. Shop custom roller blinds, plantation shutters, sheer curtains, and motorised solutions online. Free measure & quote.",
+  keywords: ["Custom Blinds", "Plantation Shutters", "Sheer Curtains", "Motorised Blinds", "Roller Blinds", "Window Furnishings", "Blockout Curtains", "Australia"],
   openGraph: {
-    title: "Capital Print & Sign | We Print. You Shine.",
-    description: "Premium printing, signage, vehicle wraps, branding, and installation services that help Australian businesses stand out with confidence.",
-    url: "https://capitalprintandsign.com.au",
-    siteName: "Capital Print & Sign",
+    title: "Capital Blinds and Shades | Premium Custom Window Treatments",
+    description: "Discover truly custom window treatments at Capital Blinds and Shades. Order free samples and find the perfect fit for your home with our expert installation.",
+    url: "https://capitalblindsandshades.com.au",
+    siteName: "Capital Blinds and Shades",
     locale: "en_AU",
     type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -38,8 +56,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
-      <body className="antialiased">
+    <html lang="en" className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${cinzel.variable}`}>
+      <body className="antialiased" suppressHydrationWarning>
         {children}
       </body>
     </html>

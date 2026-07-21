@@ -138,7 +138,7 @@ export default function ServicesAdminPage() {
               <tbody>
                 {filteredServices.map((service) => {
                   // Fallback icon to layout grid if invalid name is provided
-                  const Icon = (LucideIcons[service.iconName as keyof typeof LucideIcons] as React.ElementType) || LucideIcons.LayoutGrid;
+                  const Icon = (LucideIcons[service.iconName as keyof typeof LucideIcons] as any) || LucideIcons.LayoutGrid;
                   
                   return (
                     <tr key={service.id}>

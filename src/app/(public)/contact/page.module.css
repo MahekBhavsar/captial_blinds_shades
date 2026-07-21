@@ -1,64 +1,67 @@
 /* =============================================
-   CONTACT PAGE — Premium Upgrade
+   CONTACT PAGE — Light Luxury Glassmorphism
    ============================================= */
 
-/* ---- HERO SECTION ---- */
-.hero {
+/* ---- PAGE LAYOUT ---- */
+.pageWrapper {
+  min-height: 100vh;
+  background: var(--cream);
+  padding: 8rem 0 6rem;
   position: relative;
-  min-height: 50vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6rem 1rem 8rem;
-  background: var(--color-background);
   overflow: hidden;
-  text-align: center;
 }
 
-.heroOverlay {
+.pageWrapper::before {
+  content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background: 
-    radial-gradient(circle at 20% 30%, rgba(45, 156, 219, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-    linear-gradient(to bottom, transparent, var(--color-background));
-  z-index: 1;
+    radial-gradient(circle at 20% 10%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 80% 90%, rgba(201, 168, 76, 0.05) 0%, transparent 50%),
+    linear-gradient(to bottom, transparent, var(--cream2));
+  z-index: 0;
+  pointer-events: none;
 }
 
-.heroContent {
+/* ---- PAGE HEADER ---- */
+.pageHeader {
   position: relative;
   z-index: 2;
   max-width: 800px;
+  margin: 0 auto 4rem;
+  padding: 0 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+  text-align: center;
 }
 
 .badge {
   display: inline-block;
-  padding: 0.5rem 1rem;
-  background: rgba(45, 156, 219, 0.1);
-  color: var(--color-primary);
-  border: 1px solid rgba(45, 156, 219, 0.2);
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  padding: 0.5rem 1.5rem;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
 }
 
-.heroContent h1 {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-family: var(--font-poppins);
-  color: var(--color-text);
+.pageHeader h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-family: var(--font-cinzel), serif;
+  font-weight: 800;
+  color: var(--nb-navy);
   line-height: 1.1;
   margin: 0;
 }
 
-.heroContent p {
-  font-size: clamp(1.1rem, 2vw, 1.3rem);
-  color: var(--color-muted);
+.pageHeader p {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: rgba(12, 27, 58, 0.7);
   line-height: 1.6;
   max-width: 600px;
   margin: 0;
@@ -66,8 +69,8 @@
 
 /* ---- MAIN CONTAINER ---- */
 .container {
-  max-width: 1200px;
-  margin: -5rem auto 4rem; /* Overlap hero */
+  max-width: 1300px;
+  margin: 0 auto;
   padding: 0 clamp(1rem, 4vw, 2rem);
   display: grid;
   grid-template-columns: 1fr 1.6fr;
@@ -85,42 +88,43 @@
 }
 
 .contactCard {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 1);
+  border-bottom: 2px solid rgba(201, 168, 76, 0.2);
+  border-radius: 20px;
+  padding: 1.75rem;
   display: flex;
   align-items: flex-start;
   gap: 1.25rem;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
-  transition: all 0.3s ease;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s ease;
   cursor: default;
 }
 
 .contactCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.08);
-  border-color: var(--color-primary-light);
-  background: white;
+  box-shadow: 0 20px 50px rgba(201, 168, 76, 0.15);
+  border-bottom-color: var(--gold);
 }
 
 .iconWrapper {
   width: 48px;
   height: 48px;
-  background: rgba(45, 156, 219, 0.1);
-  color: var(--color-primary);
-  border-radius: 12px;
+  background: transparent;
+  color: var(--gold);
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .contactCard:hover .iconWrapper {
-  background: var(--color-primary);
-  color: white;
+  background: var(--gold);
+  color: var(--white);
   transform: scale(1.05);
 }
 
@@ -128,12 +132,14 @@
   font-size: 1.05rem;
   font-weight: 700;
   margin-bottom: 0.35rem;
-  color: var(--color-text);
-  font-family: var(--font-poppins);
+  color: var(--nb-navy);
+  font-family: var(--sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .detailText p {
-  color: var(--color-muted);
+  color: rgba(12, 27, 58, 0.7);
   font-size: 0.95rem;
   margin: 0;
   line-height: 1.6;
@@ -142,20 +148,22 @@
 .detailText a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.3s ease;
 }
 
 .detailText a:hover {
-  color: var(--color-primary);
+  color: var(--gold);
 }
 
 /* ---- RIGHT FORM CARD ---- */
 .formSection {
-  background: white;
-  padding: clamp(2rem, 4vw, 3.5rem);
-  border-radius: 24px;
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0,0,0,0.04);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  padding: clamp(2rem, 4vw, 4rem);
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 1);
+  border-bottom: 2px solid rgba(201, 168, 76, 0.2);
 }
 
 /* ---- PROGRESS BAR ---- */
@@ -178,19 +186,18 @@
   top: 50%;
   left: 0;
   right: 0;
-  height: 3px;
-  background: #f1f5f9;
+  height: 2px;
+  background: rgba(201, 168, 76, 0.2);
   transform: translateY(-50%);
   z-index: 0;
-  border-radius: 2px;
 }
 
 .step {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: #f1f5f9;
-  color: #94a3b8;
+  background: var(--cream2);
+  color: var(--stone);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -198,20 +205,22 @@
   font-size: 1rem;
   position: relative;
   z-index: 2;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 4px solid white;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(201, 168, 76, 0.3);
 }
 
 .step.active {
-  background: var(--color-primary);
-  color: white;
-  box-shadow: 0 0 0 4px rgba(45, 156, 219, 0.2);
-  transform: scale(1.15);
+  background: var(--gold);
+  color: var(--white);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.2);
+  transform: scale(1.1);
 }
 
 .step.completed {
-  background: var(--color-primary);
-  color: white;
+  background: var(--gold);
+  color: var(--white);
+  border-color: var(--gold);
 }
 
 /* ---- FORM CONTENT ---- */
@@ -222,10 +231,11 @@
 }
 
 .stepTitle {
-  font-size: clamp(1.4rem, 3vw, 1.8rem);
-  font-family: var(--font-poppins);
+  font-size: clamp(1.8rem, 3vw, 2.2rem);
+  font-family: var(--font-cinzel), serif;
+  font-weight: 800;
   margin-bottom: 0.5rem;
-  color: var(--color-text);
+  color: var(--nb-navy);
 }
 
 /* ---- INPUTS ---- */
@@ -238,37 +248,37 @@
 .nameGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .label {
   font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--color-text);
-  letter-spacing: 0.02em;
+  font-size: 0.8rem;
+  color: var(--nb-navy);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .input {
-  padding: 1rem 1.25rem;
-  border-radius: var(--radius-md);
-  border: 2px solid transparent;
-  background: #f8fafc;
-  color: var(--color-text);
+  padding: 1.1rem 0;
+  border: none;
+  border-bottom: 1px solid rgba(12, 27, 58, 0.2);
+  background: transparent;
+  color: var(--nb-navy);
   font-family: var(--font-inter);
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   width: 100%;
 }
 
 .input::placeholder {
-  color: #94a3b8;
+  color: rgba(12, 27, 58, 0.4);
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--color-primary);
-  background: white;
-  box-shadow: 0 4px 20px -5px rgba(45, 156, 219, 0.15);
+  border-bottom-color: var(--gold);
+  box-shadow: 0 1px 0 0 var(--gold);
 }
 
 .textarea {
@@ -288,7 +298,7 @@
 /* ---- CHECKBOXES ---- */
 .checkboxGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1rem;
   margin-top: 0.5rem;
 }
@@ -298,30 +308,29 @@
   align-items: center;
   gap: 0.75rem;
   cursor: pointer;
-  padding: 1rem;
-  background: #f8fafc;
-  border: 2px solid transparent;
-  border-radius: var(--radius-md);
-  transition: all 0.2s ease;
+  padding: 1.1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(12, 27, 58, 0.1);
+  border-radius: 6px;
+  transition: all 0.3s ease;
   font-size: 0.95rem;
   font-weight: 500;
-  color: var(--color-text);
+  color: var(--nb-navy);
 }
 
 .checkboxLabel:hover {
-  background: rgba(45, 156, 219, 0.05);
+  border-color: rgba(201, 168, 76, 0.4);
 }
 
 .checkboxLabel:has(input:checked) {
-  background: rgba(45, 156, 219, 0.08);
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  background: rgba(201, 168, 76, 0.05);
+  border-color: var(--gold);
 }
 
 .checkboxLabel input[type="checkbox"] {
-  accent-color: var(--color-primary);
-  width: 18px;
-  height: 18px;
+  accent-color: var(--gold);
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 
@@ -347,20 +356,21 @@
 .successIcon {
   width: 90px;
   height: 90px;
-  background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
+  background: rgba(201, 168, 76, 0.1);
+  color: var(--gold);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 2rem;
-  border: 3px solid rgba(16, 185, 129, 0.2);
+  border: 3px solid rgba(201, 168, 76, 0.2);
 }
 
 .successMessage h2 {
-  font-size: 2rem;
-  font-family: var(--font-poppins);
-  color: var(--color-text);
+  font-size: 2.2rem;
+  font-family: var(--font-cinzel), serif;
+  font-weight: 800;
+  color: var(--nb-navy);
   margin-bottom: 0.5rem;
 }
 

@@ -1,11 +1,11 @@
 :root {
-  /* Brand Colors */
-  --color-primary: #001F3F;
-  --color-primary-dark: #001224;
-  --color-secondary: #D4AF37;
-  --color-accent: #C5A059;
-  --color-dark: #0a1421;
-  --color-dark-mid: #122238;
+  /* Brand Colors — Navy & Gold from logo */
+  --color-primary: #0C1B3A;        /* Deep navy (B in logo) */
+  --color-primary-dark: #071025;   /* Darker navy */
+  --color-secondary: #C9A84C;      /* Logo gold */
+  --color-accent: #A8872E;         /* Darker gold hover */
+  --color-dark: #0C1B3A;
+  --color-dark-mid: #16284D;
   --color-light: #F8F9FB;
   --color-white: #FFFFFF;
 
@@ -32,8 +32,8 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.1);
-  --shadow-primary: 0 8px 28px rgba(0, 31, 63, 0.35);
-  --shadow-secondary: 0 8px 28px rgba(212, 175, 55, 0.35);
+  --shadow-primary: 0 8px 28px rgba(12, 27, 58, 0.35);
+  --shadow-secondary: 0 8px 28px rgba(201, 168, 76, 0.35);
 
   /* Typography scale using clamp for responsiveness */
   --text-xs: clamp(0.7rem, 1.5vw, 0.8rem);
