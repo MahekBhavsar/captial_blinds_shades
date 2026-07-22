@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, FileSignature } from "lucide-react";
+import { Menu, X, FileSignature } from "lucide-react";
 import styles from "./Navbar.module.css";
 
 const navLinks = [
@@ -63,10 +63,29 @@ export function Navbar() {
           <FileSignature size={14} /> BOOK FREE MEASURE
         </Link>
 
-        {/* MOBILE MENU */}
+        {/* MOBILE MENU BUTTON */}
         <button className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
-          <Menu size={24} />
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
+
+        {/* MOBILE NAV OVERLAY */}
+        <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileMenuOpen : ""}`}>
+          <div className={styles.mobileLinks}>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`${styles.mobileLink} ${pathname === link.href ? styles.activeMobileLink : ""}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link href="/contact" className={styles.mobileCtaBtn} onClick={() => setMenuOpen(false)}>
+              <FileSignature size={14} /> BOOK FREE MEASURE
+            </Link>
+          </div>
+        </div>
 
       </nav>
     </header>

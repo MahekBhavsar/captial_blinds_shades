@@ -18,21 +18,21 @@ import {
 } from "lucide-react";
 import styles from "./page.module.css";
 
-/* ─── DATA ─── */
 const products = [
   { title: "Roller Blinds", desc: "Sleek, versatile & effortless", img: "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=800&auto=format&fit=crop", span: "tall" },
-  { title: "Vertical Blinds", desc: "Perfect for floor-to-ceiling windows", img: "https://www.norwichsunblinds.co.uk/wp-content/uploads/2016/09/LL-Vertical-blind-Chenille-mauve.jpg", span: "short" },
-  { title: "Sheer Curtains", desc: "Soft light, total elegance", img: "https://tse1.mm.bing.net/th/id/OIP.BLCxmNpMUedlL2bTd_1LHgHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3", span: "short" },
-  { title: "Blockout Curtains", desc: "Complete darkness, total comfort", img: "https://tse1.mm.bing.net/th/id/OIP.AtUVQdiSU-GrQ4LUgw7SBAHaFj?r=0&rs=1&pid=ImgDetMain&o=7&rm=3", span: "short" },
-  { title: "Plantation Shutters", desc: "Timeless beauty, lasting quality", img: "https://miro.medium.com/max/8524/1*mUueHmsKpysal07B__UzEw.jpeg", span: "tall" },
-  { title: "Motorised Solutions", desc: "Smart living, effortlessly elevated", img: "https://usshuttersandblinds.com/wp-content/uploads/2026/01/How-do-motorized-blinds-work-2.webp", span: "short" },
+  { title: "Vertical Blinds", desc: "Perfect for large windows", img: "https://images.unsplash.com/photo-1589834390005-5d4fb9bf3d32?q=80&w=800&auto=format&fit=crop", span: "short" },
+  { title: "Sheer Curtains", desc: "Soft light, total elegance", img: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=800&auto=format&fit=crop", span: "short" },
+  { title: "Blockout Curtains", desc: "Complete darkness, total comfort", img: "https://images.unsplash.com/photo-1583847268964-b28ce8f30e9b?q=80&w=800&auto=format&fit=crop", span: "short" },
+  { title: "Verishade Blinds", desc: "Curtains meets blinds", img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop", span: "tall" },
+  { title: "Plantation Shutters", desc: "Timeless beauty, lasting quality", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop", span: "tall" },
+  { title: "Motorised Solution", desc: "Smart living, effortlessly elevated", img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=800&auto=format&fit=crop", span: "short" },
 ];
 
 const stats = [
-  { num: "500+", label: "Homes Transformed" },
-  { num: "15yr", label: "Industry Experience" },
+  { num: "50+", label: "Homes Transformed" },
+  { num: "1+ yr", label: "Industry Experience" },
   { num: "100%", label: "Custom Made" },
-  { num: "★ 4.9", label: "Average Rating" },
+  { num: "★ 4.4", label: "Average Rating" },
 ];
 
 const features = [
@@ -193,7 +193,7 @@ export default function Home() {
           </div>
 
           <div className={styles.productGrid}>
-            {products.map((p, i) => (
+            {products.slice(0, 3).map((p, i) => (
               <Link
                 href="/services"
                 key={i}

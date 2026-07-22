@@ -22,7 +22,6 @@ const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0
 
 // Initialize services
 const db = getFirestore(app);
-const auth = getAuth(app);
 const storage = getStorage(app);
 
 // Analytics is only available in browser environments
@@ -54,4 +53,4 @@ const collections = {
   services: collection(db, "services").withConverter(createConverter<ServiceDocument>()),
 };
 
-export { app, db, auth, storage, analytics, collections };
+export { app, db, storage, analytics, collections };

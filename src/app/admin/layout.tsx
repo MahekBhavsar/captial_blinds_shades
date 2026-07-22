@@ -5,8 +5,10 @@ import Link from "next/link";
 import { LayoutDashboard, Image as ImageIcon, MessageSquare, Settings, LogOut, Users, FileText, Briefcase, Receipt } from "lucide-react";
 import styles from "./AdminLayout.module.css";
 import { usePathname, useRouter } from "next/navigation";
-import { auth } from "@/lib/firebase";
-import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from "firebase/auth";
+import { app } from "@/lib/firebase";
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User, getAuth } from "firebase/auth";
+
+const auth = getAuth(app);
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

@@ -27,6 +27,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'usshuttersandblinds.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'static.asianpaints.com',
+      },
     ],
   },
 };
