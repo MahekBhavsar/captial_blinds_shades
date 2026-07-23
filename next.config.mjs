@@ -31,6 +31,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'static.asianpaints.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'northsolarscreen.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'tse4.mm.bing.net',
+      },
     ],
   },
 };

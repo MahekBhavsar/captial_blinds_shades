@@ -20,13 +20,14 @@ import Link from "next/link";
 
 /* ── Product images mapped by common keywords ── */
 const productImages: Record<string, string> = {
-  "Roller Blinds": "https://images.unsplash.com/photo-1615873968403-89e068629265?q=80&w=800&auto=format&fit=crop",
+  "Roller Blinds": "https://northsolarscreen.com/wp-content/uploads/2013/11/cellular-shades.jpg",
   "Vertical Blinds": "https://www.norwichsunblinds.co.uk/wp-content/uploads/2016/09/LL-Vertical-blind-Chenille-mauve.jpg",
   "Sheer Curtains": "https://tse1.mm.bing.net/th/id/OIP.BLCxmNpMUedlL2bTd_1LHgHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
   "Blockout Curtains": "https://tse1.mm.bing.net/th/id/OIP.AtUVQdiSU-GrQ4LUgw7SBAHaFj?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
   "Plantation Shutters": "https://miro.medium.com/max/8524/1*mUueHmsKpysal07B__UzEw.jpeg",
-  "Motorised Solutions": "https://usshuttersandblinds.com/wp-content/uploads/2026/01/How-do-motorized-blinds-work-2.webp",
-  "Verishade Blinds": "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=800&auto=format&fit=crop",
+  "Motorised Solution": "https://tse4.mm.bing.net/th/id/OIP.Vjo0ayQqGdIIPOzJ3mzDeQHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+  "Motorised Solutions": "https://tse4.mm.bing.net/th/id/OIP.Vjo0ayQqGdIIPOzJ3mzDeQHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+  "Verishade Blinds": "https://tse1.mm.bing.net/th/id/OIP.tvnVtAbQu0U0gZXyrMXZPAHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
   "Expert Installation": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=800&auto=format&fit=crop",
   default: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
 };
