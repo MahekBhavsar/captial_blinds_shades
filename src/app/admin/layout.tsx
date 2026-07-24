@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { LayoutDashboard, Image as ImageIcon, MessageSquare, Settings, LogOut, Users, FileText, Briefcase, Receipt } from "lucide-react";
+import { LayoutDashboard, Image as ImageIcon, MessageSquare, Settings, LogOut, Users, FileText, Briefcase, Receipt, Lock, User as UserIcon } from "lucide-react";
 import styles from "./AdminLayout.module.css";
 import { usePathname, useRouter } from "next/navigation";
 import { app } from "@/lib/firebase";
@@ -54,8 +54,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: "/admin", label: "Dashboard", icon: <LayoutDashboard size={20} /> },
     { href: "/admin/quotes", label: "Quote Requests", icon: <MessageSquare size={20} /> },
     { href: "/admin/services", label: "Services", icon: <Briefcase size={20} /> },
-    { href: "/admin/portfolio", label: "Portfolio", icon: <ImageIcon size={20} /> },
-    { href: "/admin/blog", label: "Blog CMS", icon: <FileText size={20} /> },
     { href: "/admin/invoice-generator", label: "Invoice Generator", icon: <Receipt size={20} /> },
 
     { href: "/admin/users", label: "Users & Roles", icon: <Users size={20} /> },
@@ -68,28 +66,64 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (!user) {
     return (
-      <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0a192f" }}>
-        <div style={{ background: "#f8fafc", padding: "2rem", borderRadius: "12px", border: "1px solid #e2e8f0", width: "100%", maxWidth: "400px" }}>
-          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-            <h1 style={{ fontFamily: "var(--font-poppins)", color: "white", marginBottom: "0.5rem" }}>Admin Login</h1>
-            <p style={{ color: "#94a3b8" }}>Capital Print & Sign</p>
+      <div style={{ 
+        height: "100vh", 
+        display: "flex", 
+        alignItems: "center", 
+        justifyContent: "center", 
+        background: `radial-gradient(circle at top left, rgba(162, 204, 252, 0.8) 0%, transparent 40%),
+                     radial-gradient(circle at top right, rgba(251, 242, 170, 0.8) 0%, transparent 40%),
+                     radial-gradient(circle at bottom right, rgba(242, 111, 85, 0.8) 0%, transparent 40%),
+                     radial-gradient(circle at bottom left, rgba(41, 72, 255, 0.8) 0%, transparent 50%),
+                     #e4f0fa`
+      }}>
+        <div style={{ 
+          background: "rgba(255, 255, 255, 0.85)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          padding: "3rem 2.5rem", 
+          borderRadius: "16px", 
+          width: "100%", 
+          maxWidth: "380px",
+          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.05)"
+        }}>
+          <div style={{
+            width: "90px", height: "90px", 
+            borderRadius: "50%", 
+            background: "#efa386", 
+            margin: "0 auto 2.5rem",
+            display: "flex", alignItems: "center", justifyContent: "center"
+          }}>
+            <UserIcon size={44} color="white" strokeWidth={1.5} />
           </div>
           
-          <form onSubmit={handleLogin} autoComplete="off" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            {error && <div style={{ background: "rgba(239, 68, 68, 0.1)", color: "#ef4444", padding: "0.75rem", borderRadius: "8px", fontSize: "0.9rem", textAlign: "center" }}>{error}</div>}
+          <form onSubmit={handleLogin} autoComplete="off" style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
+            {error && <div style={{ color: "#ef4444", fontSize: "0.85rem", textAlign: "center" }}>{error}</div>}
             
-            <div>
-              <label style={{ display: "block", color: "#1e293b", marginBottom: "0.5rem", fontSize: "0.9rem" }}>Email</label>
-              <input type="email" required autoComplete="off" value={email} onChange={e => setEmail(e.target.value)} style={{ width: "100%", padding: "0.75rem", background: "#f1f5f9", border: "1px solid #e2e8f0", borderRadius: "8px", color: "black" }} />
+            <div style={{ display: "flex", width: "100%", background: "#dcdcdc", borderRadius: "4px", overflow: "hidden" }}>
+              <div style={{ padding: "0.9rem", background: "#d0d0d0", display: "flex", alignItems: "center", justifyContent: "center", width: "50px" }}>
+                <UserIcon size={20} color="#555" />
+              </div>
+              <input type="email" required autoComplete="off" value={email} onChange={e => setEmail(e.target.value)} style={{ flex: 1, padding: "0.9rem 1rem", border: "none", background: "transparent", outline: "none", color: "#333", fontSize: "0.95rem" }} placeholder="Username" />
             </div>
             
-            <div>
-              <label style={{ display: "block", color: "#1e293b", marginBottom: "0.5rem", fontSize: "0.9rem" }}>Password</label>
-              <input type="password" required autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} style={{ width: "100%", padding: "0.75rem", background: "#f1f5f9", border: "1px solid #e2e8f0", borderRadius: "8px", color: "black" }} />
+            <div style={{ display: "flex", width: "100%", background: "#dcdcdc", borderRadius: "4px", overflow: "hidden" }}>
+              <div style={{ padding: "0.9rem", background: "#d0d0d0", display: "flex", alignItems: "center", justifyContent: "center", width: "50px" }}>
+                <Lock size={20} color="#555" />
+              </div>
+              <input type="password" required autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} style={{ flex: 1, padding: "0.9rem 1rem", border: "none", background: "transparent", outline: "none", color: "#333", fontSize: "0.95rem" }} placeholder="••••••••" />
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.8rem", color: "#888", marginTop: "0.5rem" }}>
+              <label style={{ display: "flex", alignItems: "center", gap: "0.4rem", cursor: "pointer" }}>
+                <input type="checkbox" style={{ accentColor: "#888", width: "14px", height: "14px", margin: 0 }} />
+                Remember me
+              </label>
+              <a href="#" style={{ color: "#888", textDecoration: "none", fontStyle: "italic" }}>Forgot Password?</a>
             </div>
             
-            <button type="submit" style={{ marginTop: "1rem", padding: "0.75rem", background: "var(--color-primary)", color: "white", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: 600 }}>
-              Sign In
+            <button type="submit" style={{ marginTop: "1.5rem", padding: "1rem", background: "#929292", color: "white", border: "none", borderRadius: "24px", cursor: "pointer", fontWeight: 600, fontSize: "0.95rem", letterSpacing: "0.05em" }}>
+              LOGIN
             </button>
           </form>
         </div>

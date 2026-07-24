@@ -209,7 +209,7 @@ export default function UsersAdminPage() {
                   className="admin-input"
                   value={newUser.role}
                   onChange={e => setNewUser({...newUser, role: e.target.value})}
-                  style={{ background: "#0f172a" }}
+                  style={{ background: "#ffffff", color: "#111827" }}
                 >
                   <option value="user">Standard User</option>
                   <option value="admin">Administrator</option>

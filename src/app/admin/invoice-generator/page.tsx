@@ -54,15 +54,15 @@ export default function InvoiceGenerator() {
   ]);
 
   // Company Details (Pre-filled)
-  const [companyName, setCompanyName] = useState("Capital Print and Sign");
+  const [companyName, setCompanyName] = useState("Capital Blinds and Shades");
   const [companyAddress, setCompanyAddress] = useState("21 Huddart Court, Mitchell ACT 2911");
   const [companyPhone, setCompanyPhone] = useState("0481 369 018");
-  const [companyEmail, setCompanyEmail] = useState("Sales@capitalprintandsign.com.au");
-  const [companyWebsite, setCompanyWebsite] = useState("www.capitalprintandsign.com.au");
+  const [companyEmail, setCompanyEmail] = useState("sales@capitalblindandshades.com.au");
+  const [companyWebsite, setCompanyWebsite] = useState("www.capitalblindandshades.com.au");
   const [companyABN, setCompanyABN] = useState("65 145 853 604");
 
   // Payment Details (Pre-filled)
-  const [accountName, setAccountName] = useState("Capital Print and Sign");
+  const [accountName, setAccountName] = useState("Capital Blinds and Shades");
   const [bsb, setBsb] = useState("062 915");
   const [accountNumber, setAccountNumber] = useState("10508894");
   const [paymentTerms, setPaymentTerms] = useState("Payment is due within 7 days from the invoice date.\n\nThank you for your business!\nWe appreciate your support.");
@@ -343,11 +343,11 @@ export default function InvoiceGenerator() {
       <div className={styles.summarySection}>
         <div className={styles.summaryBox}>
           <div className={styles.summaryRow}>
-            <span>Subtotal</span>
+            <span>Subtotal (excl. GST)</span>
             <span className={styles.summaryValue}>{formatCurrency(subtotal)}</span>
           </div>
           <div className={styles.summaryRow}>
-            <span>Tax (GST 10%)</span>
+            <span>GST (10%)</span>
             <span className={styles.summaryValue}>{formatCurrency(taxAmount)}</span>
           </div>
           <div className={`${styles.summaryRow} ${styles.totalRow}`}>

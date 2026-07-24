@@ -916,6 +916,213 @@
 
 
 /* ══════════════════════════════════════════════
+   FEEDBACK FORM
+   ══════════════════════════════════════════════ */
+.feedbackSection {
+  position: relative;
+  padding: 8rem clamp(1.5rem, 4vw, 5rem);
+  display: flex;
+  align-items: center;
+  background: var(--cream);
+}
+
+.feedbackContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.feedbackLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.feedbackDesc {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.feedbackRight {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.feedbackForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.feedbackForm .btnGold {
+  width: 100%;
+  justify-content: center;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.feedbackInput {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.9);
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--stone);
+  transition: all 0.3s ease;
+}
+
+.feedbackInput::placeholder {
+  color: var(--muted);
+}
+
+.feedbackInput:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: var(--white);
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.15);
+}
+
+.ratingSelect {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ratingLabel {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.starsWrap {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.starBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  transition: transform 0.2s;
+}
+
+.starBtn:hover {
+  transform: scale(1.1);
+}
+
+.feedbackTextarea {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.9);
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--stone);
+  min-height: 150px;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.feedbackTextarea::placeholder {
+  color: var(--muted);
+}
+
+.feedbackTextarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: var(--white);
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.15);
+}
+
+.feedbackSuccess {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  padding: 4rem 0;
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.feedbackSuccess h3 {
+  font-family: var(--serif);
+  font-size: 2.5rem;
+  color: var(--stone);
+  margin: 0;
+}
+
+.feedbackSuccess p {
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.btnGold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem 3rem;
+  background: var(--gold);
+  color: #1a1208;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(201, 168, 76, 0.15);
+}
+
+.btnGold::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.7s ease;
+}
+
+.btnGold:hover {
+  background: var(--gold2);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(201, 168, 76, 0.4);
+}
+
+.btnGold:hover::after {
+  left: 150%;
+}
+
+
+/* ══════════════════════════════════════════════
    6. REVIEWS
    ══════════════════════════════════════════════ */
 .reviews {

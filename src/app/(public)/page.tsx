@@ -43,9 +43,9 @@ const features = [
 ];
 
 const reviews = [
-  { name: "Sarah M.", location: "Melbourne", text: "Absolutely stunning. The team was professional from measure to install. I couldn't be happier.", rating: 5 },
-  { name: "James D.", location: "Sydney", text: "Quality exceeded all expectations. Every detail was perfect. Highly recommend to anyone.", rating: 5 },
-  { name: "Priya K.", location: "Brisbane", text: "Transformed our living room completely. The shutters are gorgeous and installation was seamless.", rating: 5 },
+  { name: "Sarah M.", text: "Absolutely stunning. The team was professional from measure to install. I couldn't be happier.", rating: 5 },
+  { name: "James D.", text: "Quality exceeded all expectations. Every detail was perfect. Highly recommend to anyone.", rating: 5 },
+  { name: "Priya K.", text: "Transformed our living room completely. The shutters are gorgeous and installation was seamless.", rating: 5 },
 ];
 
 
@@ -53,6 +53,21 @@ const reviews = [
 export default function Home() {
   const [heroLoaded, setHeroLoaded] = useState(false);
   const [activeReview, setActiveReview] = useState(0);
+
+  /* Feedback Form State */
+  const [feedbackName, setFeedbackName] = useState("");
+  const [feedbackRating, setFeedbackRating] = useState(5);
+  const [feedbackText, setFeedbackText] = useState("");
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+
+  const handleFeedbackSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFeedbackSubmitted(true);
+    setTimeout(() => setFeedbackSubmitted(false), 5000); // reset after 5s
+    setFeedbackName("");
+    setFeedbackRating(5);
+    setFeedbackText("");
+  };
 
   /* Scroll-reveal */
   useEffect(() => {
@@ -252,7 +267,7 @@ export default function Home() {
                   {[...Array(5)].map((_, i) => <Star key={i} size={12} fill="#c9a84c" color="#c9a84c" />)}
                 </div>
                 <p>&ldquo;Absolutely transformed our home. Couldn&rsquo;t be happier!&rdquo;</p>
-                <strong>— Emma R., Melbourne</strong>
+                <strong>— Emma R.</strong>
               </div>
             </div>
 
@@ -289,6 +304,74 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ════════════════════════════
+          FEEDBACK FORM
+      ════════════════════════════ */}
+      <section className={styles.feedbackSection}>
+        <div className={styles.sectionWrap} style={{ position: 'relative', zIndex: 2 }}>
+          <div className={styles.feedbackContainer}>
+            <div className={styles.feedbackLeft}>
+              <span className={styles.eyebrowDark} style={{ marginLeft: "-36px" }}>Share Your Experience</span>
+              <h2 className={styles.h2Dark} style={{ textAlign: "left" }}>
+                Help us craft <br /><span style={{ color: "var(--gold)" }}>Perfect Spaces.</span>
+              </h2>
+              <p className={styles.feedbackDesc}>
+                Your feedback is invaluable to us. Let us know how we transformed your space and how our team performed during the process.
+              </p>
+            </div>
+            
+            <div className={styles.feedbackRight}>
+              {feedbackSubmitted ? (
+                <div className={styles.feedbackSuccess}>
+                  <CheckCircle2 size={48} color="var(--gold)" />
+                  <h3>Thank You!</h3>
+                  <p>We appreciate your valuable feedback.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleFeedbackSubmit} className={styles.feedbackForm}>
+                  <div className={styles.formRow}>
+                    <input 
+                      type="text" 
+                      required 
+                      placeholder="Your Name" 
+                      className={styles.feedbackInput} 
+                      value={feedbackName}
+                      onChange={(e) => setFeedbackName(e.target.value)}
+                    />
+                  </div>
+                  <div className={styles.ratingSelect}>
+                    <span className={styles.ratingLabel}>Rate your experience:</span>
+                    <div className={styles.starsWrap}>
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button 
+                          type="button" 
+                          key={star} 
+                          onClick={() => setFeedbackRating(star)}
+                          className={styles.starBtn}
+                        >
+                          <Star size={24} fill={star <= feedbackRating ? "var(--gold)" : "transparent"} color={star <= feedbackRating ? "var(--gold)" : "rgba(255,255,255,0.2)"} />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <textarea 
+                    required 
+                    placeholder="Share your thoughts..." 
+                    className={styles.feedbackTextarea}
+                    value={feedbackText}
+                    onChange={(e) => setFeedbackText(e.target.value)}
+                  ></textarea>
+                  <button type="submit" className={styles.btnGold} style={{ width: '100%', justifyContent: 'center' }}>
+                    Submit Review <ArrowRight size={16} />
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+
 
       {/* ════════════════════════════
           REVIEWS CAROUSEL
@@ -298,7 +381,7 @@ export default function Home() {
           <div className={`${styles.sectionHead} ${styles.reveal}`} style={{ justifyContent: "center", textAlign: "center" }}>
             <div>
               <span className={styles.eyebrow}>What Customers Say</span>
-              <h2 className={styles.h2Light}>Real Stories. <em>Real Results.</em></h2>
+              <h2 className={styles.h2Light}>Real Stories. <span style={{ color: "var(--gold)" }}>Real Results.</span></h2>
             </div>
           </div>
 
@@ -314,7 +397,6 @@ export default function Home() {
                     <div className={styles.reviewAvatar}>{r.name[0]}</div>
                     <div>
                       <strong>{r.name}</strong>
-                      <span>{r.location}</span>
                     </div>
                   </div>
                 </div>

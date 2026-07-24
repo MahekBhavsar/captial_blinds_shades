@@ -14,10 +14,9 @@ import { useEffect } from "react";
 import type { SettingsDocument } from "@/lib/schema";
 
 const servicesList = [
-  "Roller Blinds", "Zebra Blinds", "Venetian Blinds",
-  "Vertical Blinds", "Roman Blinds", "Panel Blinds",
-  "Sheer Curtains", "Blockout Curtains", "Verishade Blinds",
-  "Plantation Shutters", "Motorised Solutions"
+  "Roller Blinds", "Vertical Blinds", "Sheer Curtains",
+  "Blockout Curtains", "Plantation Shutters", "Motorised Solutions",
+  "Verishade Blinds", "Other"
 ];
 
 export default function ContactPage() {
