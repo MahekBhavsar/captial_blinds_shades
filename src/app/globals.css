@@ -9,6 +9,11 @@
   --color-light: #F8F9FB;
   --color-white: #FFFFFF;
 
+  /* Aliases used by modules */
+  --nb-navy: #0C1B3A;
+  --white: #FFFFFF;
+  --gold: #C9A84C;
+
   /* Semantic */
   --background: var(--color-white);
   --foreground: #1e293b;

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X, FileSignature } from "lucide-react";
+import { Menu, X, MessageCircle } from "lucide-react";
 import styles from "./Navbar.module.css";
 import { BrandLogo } from "./BrandLogo";
 
@@ -46,9 +46,9 @@ export function Navbar() {
         </div>
 
         {/* EXACT RIGHT BUTTON */}
-        <Link href="/contact" className={styles.ctaBtn}>
-          <FileSignature size={14} /> BOOK FREE MEASURE
-        </Link>
+        <a href="https://wa.me/61481369018" target="_blank" rel="noopener noreferrer" className={styles.whatsappNavBtn}>
+          <MessageCircle size={18} /> WhatsApp
+        </a>
 
         {/* MOBILE MENU BUTTON */}
         <button className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
@@ -68,9 +68,9 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link href="/contact" className={styles.mobileCtaBtn} onClick={() => setMenuOpen(false)}>
-              <FileSignature size={14} /> BOOK FREE MEASURE
-            </Link>
+            <a href="https://wa.me/61481369018" target="_blank" rel="noopener noreferrer" className={styles.mobileWhatsappBtn} onClick={() => setMenuOpen(false)}>
+              <MessageCircle size={18} /> WhatsApp
+            </a>
           </div>
         </div>
 

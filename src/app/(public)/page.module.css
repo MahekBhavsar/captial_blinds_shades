@@ -1573,6 +1573,11 @@
     border-bottom: 1px solid var(--cream3);
     flex: 0 0 40%;
   }
+
+  .feedbackContainer {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
 }
 
 @media (max-width: 620px) {
@@ -1603,14 +1608,8 @@
   }
 
   .reviewCard {
-    position: relative;
-    opacity: 1;
-    transform: none;
-    display: none;
-  }
-
-  .reviewActive {
-    display: flex;
+    flex: 0 0 280px;
+    padding: 1.5rem;
   }
 
   .ctaBtns {

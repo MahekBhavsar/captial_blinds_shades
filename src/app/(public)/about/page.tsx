@@ -334,40 +334,42 @@ export default function AboutPage() {
           </div>
 
           <div className={styles.valuesTimelineWrap}>
-            <div className={styles.lineTrackContainer}>
-              <div className={styles.valuesTimelineLineBg} />
-              <motion.div
-                className={styles.valuesTimelineLineFill}
-                initial={{ width: "0%" }}
-                whileInView={{ width: "100%" }}
-                transition={{ duration: 1.8, ease: "easeInOut" }}
-                viewport={{ once: false, amount: 0.5 }}
-              />
-            </div>
-            <motion.div
-              className={styles.valuesTimelineNodes}
-              variants={stagger}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.5 }}
-            >
-              {values.map((v, i) => (
+            <div className={styles.valuesTimelineInner}>
+              <div className={styles.lineTrackContainer}>
+                <div className={styles.valuesTimelineLineBg} />
                 <motion.div
-                  key={i}
-                  className={styles.valueNode}
-                  variants={fadeUp}
-                >
+                  className={styles.valuesTimelineLineFill}
+                  initial={{ "--line-progress": "0%" } as any}
+                  whileInView={{ "--line-progress": "100%" } as any}
+                  transition={{ duration: 1.8, ease: "easeInOut" }}
+                  viewport={{ once: false, amount: 0.1 }}
+                />
+              </div>
+              <motion.div
+                className={styles.valuesTimelineNodes}
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.1 }}
+              >
+                {values.map((v, i) => (
                   <motion.div
-                    className={styles.valueNodeCircle}
-                    whileHover={{ scale: 1.15, rotate: 5, boxShadow: "0 0 30px rgba(201,168,76,0.4)" }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    key={i}
+                    className={styles.valueNode}
+                    variants={fadeUp}
                   >
-                    {v.icon}
+                    <motion.div
+                      className={styles.valueNodeCircle}
+                      whileHover={{ scale: 1.15, rotate: 5, boxShadow: "0 0 30px rgba(201,168,76,0.4)" }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    >
+                      {v.icon}
+                    </motion.div>
+                    <h3 className={styles.valueNodeTitle}>{v.title}</h3>
                   </motion.div>
-                  <h3 className={styles.valueNodeTitle}>{v.title}</h3>
-                </motion.div>
-              ))}
-            </motion.div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>

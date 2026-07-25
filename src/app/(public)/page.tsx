@@ -18,6 +18,8 @@ import {
   Zap,
 } from "lucide-react";
 import styles from "./page.module.css";
+import { collections } from "@/lib/firebase";
+import { addDoc, getDocs, query, orderBy } from "firebase/firestore";
 
 const products = [
   { title: "Roller Blinds", desc: "Sleek, versatile & effortless", img: "https://northsolarscreen.com/wp-content/uploads/2013/11/cellular-shades.jpg", span: "tall" },
@@ -44,9 +46,11 @@ const features = [
 ];
 
 const reviews = [
-  { name: "Sarah M.", text: "Absolutely stunning. The team was professional from measure to install. I couldn't be happier.", rating: 5 },
-  { name: "James D.", text: "Quality exceeded all expectations. Every detail was perfect. Highly recommend to anyone.", rating: 5 },
-  { name: "Priya K.", text: "Transformed our living room completely. The shutters are gorgeous and installation was seamless.", rating: 5 },
+  { name: "Sarah M.", text: "The transformation is absolutely breathtaking! The team delivered flawless service from the first consultation to the final installation. Our home looks incredibly luxurious!", rating: 5 },
+  { name: "James D.", text: "I am completely blown away by the quality and craftsmanship. The sheer curtains give our living space a stunning high-end feel. I highly recommend them to absolutely everyone!", rating: 5 },
+  { name: "Priya K.", text: "Outstanding service and phenomenal results! The plantation shutters are absolutely gorgeous and fit with perfect precision. The team was polite and professional. Our best investment ever!", rating: 5 },
+  { name: "Michael T.", text: "We are absolutely thrilled with our new motorised blinds! The convenience of controlling them from our phone is wonderful, and the premium fabric quality is simply unmatched.", rating: 5 },
+  { name: "Emma L.", text: "A truly fantastic experience from start to finish! The free measure and quote made choosing colours incredibly easy. The Verishades look spectacularly elegant in our dining area.", rating: 5 },
 ];
 
 /* ─── ANIMATION VARIANTS ─── */
@@ -69,6 +73,45 @@ const staggerContainer = {
 export default function Home() {
   const [heroLoaded, setHeroLoaded] = useState(false);
   const [activeReview, setActiveReview] = useState(0);
+  const [dbReviews, setDbReviews] = useState<{name: string; text: string; rating: number}[]>(reviews);
+
+  /* Fetch & Seed Feedbacks */
+  useEffect(() => {
+    async function loadReviews() {
+      try {
+        const q = query(collections.testimonials, orderBy("createdAt", "desc"));
+        const snapshot = await getDocs(q);
+        
+        if (snapshot.empty) {
+          // Seed the database with our static reviews
+          for (const r of reviews) {
+            await addDoc(collections.testimonials, {
+              clientName: r.name,
+              content: r.text,
+              rating: r.rating,
+              featured: true,
+              createdAt: new Date()
+            });
+          }
+          setDbReviews(reviews);
+        } else {
+          // Load from DB
+          const loaded = snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+              name: data.clientName,
+              text: data.content,
+              rating: data.rating || 5
+            };
+          });
+          setDbReviews(loaded);
+        }
+      } catch (err) {
+        console.error("Error loading reviews:", err);
+      }
+    }
+    loadReviews();
+  }, []);
 
   /* Feedback Form State */
   const [feedbackName, setFeedbackName] = useState("");
@@ -76,13 +119,32 @@ export default function Home() {
   const [feedbackText, setFeedbackText] = useState("");
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
 
-  const handleFeedbackSubmit = (e: React.FormEvent) => {
+  const handleFeedbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFeedbackSubmitted(true);
-    setTimeout(() => setFeedbackSubmitted(false), 5000);
-    setFeedbackName("");
-    setFeedbackRating(5);
-    setFeedbackText("");
+    try {
+      await addDoc(collections.testimonials, {
+        clientName: feedbackName,
+        content: feedbackText,
+        rating: feedbackRating,
+        featured: true,
+        createdAt: new Date()
+      });
+      
+      // Update locally immediately
+      setDbReviews(prev => [{
+        name: feedbackName,
+        text: feedbackText,
+        rating: feedbackRating
+      }, ...prev]);
+
+      setFeedbackSubmitted(true);
+      setTimeout(() => setFeedbackSubmitted(false), 5000);
+      setFeedbackName("");
+      setFeedbackRating(5);
+      setFeedbackText("");
+    } catch (err) {
+      console.error("Error submitting feedback:", err);
+    }
   };
 
   /* Auto-advance reviews */
@@ -283,7 +345,7 @@ export default function Home() {
               <div className={styles.whyBadge}>
                 <Award size={22} color="#c9a84c" />
                 <div>
-                  <strong>15+ Years</strong>
+                  <strong>1+ years</strong>
                   <span>of Excellence</span>
                 </div>
               </div>
@@ -293,8 +355,8 @@ export default function Home() {
                 <div className={styles.whyReviewStars}>
                   {[...Array(5)].map((_, i) => <Star key={i} size={12} fill="#c9a84c" color="#c9a84c" />)}
                 </div>
-                <p>&ldquo;Absolutely transformed our home. Couldn&rsquo;t be happier!&rdquo;</p>
-                <strong>— Emma R.</strong>
+                <p>&ldquo;The team provided exceptional service. Our new motorized blinds are stunning and the installation was flawless!&rdquo;</p>
+                <strong>— Sarah T.</strong>
               </div>
             </motion.div>
 
@@ -423,14 +485,14 @@ export default function Home() {
         <div className={styles.sectionWrap}>
           <motion.div 
             className={styles.sectionHead} 
-            style={{ justifyContent: "center", textAlign: "center" }}
+            style={{ justifyContent: "center", textAlign: "center", alignItems: "center", display: "flex", flexDirection: "column" }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div>
-              <span className={styles.eyebrow}>What Customers Say</span>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <span className={styles.eyebrow} style={{ justifyContent: "center" }}>What Customers Say</span>
               <h2 className={styles.h2Light}>Real Stories. <span style={{ color: "var(--gold)" }}>Real Results.</span></h2>
             </div>
           </motion.div>
@@ -443,7 +505,7 @@ export default function Home() {
             transition={{ duration: 1 }}
           >
             <div className={styles.reviewTrack}>
-              {[...reviews, ...reviews, ...reviews, ...reviews].map((r, i) => (
+              {[...dbReviews, ...dbReviews, ...dbReviews, ...dbReviews].map((r, i) => (
                 <div key={i} className={styles.reviewCard}>
                   <div className={styles.reviewStars}>
                     {[...Array(r.rating)].map((_, j) => <Star key={j} size={14} fill="#c9a84c" color="#c9a84c" />)}

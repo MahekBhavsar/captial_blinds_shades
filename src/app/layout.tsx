@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, Playfair_Display, Cinzel } from "next/font/google";
 import "./globals.css";
+import { WhatsAppFloatingBtn } from "@/components/ui/WhatsAppFloatingBtn";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -59,6 +60,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${cinzel.variable}`}>
       <body className="antialiased" suppressHydrationWarning>
         {children}
+        <WhatsAppFloatingBtn />
       </body>
     </html>
   );

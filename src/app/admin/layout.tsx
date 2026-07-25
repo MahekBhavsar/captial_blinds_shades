@@ -55,7 +55,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: "/admin/quotes", label: "Quote Requests", icon: <MessageSquare size={20} /> },
     { href: "/admin/services", label: "Services", icon: <Briefcase size={20} /> },
     { href: "/admin/invoice-generator", label: "Invoice Generator", icon: <Receipt size={20} /> },
-
+    { href: "/admin/feedbacks", label: "Feedbacks", icon: <MessageSquare size={20} /> },
     { href: "/admin/users", label: "Users & Roles", icon: <Users size={20} /> },
     { href: "/admin/settings", label: "Settings", icon: <Settings size={20} /> },
   ];
