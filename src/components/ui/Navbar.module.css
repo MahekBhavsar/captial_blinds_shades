@@ -188,7 +188,7 @@
   }
 
   .mobileMenu {
-    display: block; /* Show on mobile */
+    display: block;
     position: absolute;
     top: 100%;
     left: 0;
@@ -204,7 +204,7 @@
 
   .mobileMenuOpen {
     max-height: 400px;
-    padding: 1.5rem 0;
+    padding: 1rem 0;
     box-shadow: 0 10px 20px rgba(12, 27, 58, 0.1);
     border-bottom: 1px solid rgba(201, 168, 76, 0.15);
   }
@@ -212,45 +212,72 @@
   .mobileLinks {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+    align-items: stretch;
+    padding: 0 1rem;
+    gap: 0.2rem;
   }
 
   .mobileLink {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.8rem 1rem;
     font-family: var(--font-poppins);
-    font-weight: 600;
-    font-size: 0.9rem;
+    font-weight: 500;
+    font-size: 0.95rem;
     color: var(--nb-navy);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    border-radius: 8px;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
   }
 
-  .activeMobileLink,
-  .mobileLink:hover {
+  .activeMobileLink {
+    background: rgba(201, 168, 76, 0.1);
     color: var(--nb-gold);
+    font-weight: 600;
+  }
+
+  .activeMobileLink::after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--nb-gold);
+  }
+
+  .mobileLink:hover:not(.activeMobileLink) {
+    background: rgba(12, 27, 58, 0.03);
+  }
+
+  .mobileDivider {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(12, 27, 58, 0.08);
+    margin: 0.5rem 0;
   }
 
   .mobileWhatsappBtn {
-    display: inline-flex;
+    display: flex;
+    justify-content: center;
     align-items: center;
+    width: 100%;
     gap: 0.5rem;
-    padding: 0.8rem 1.6rem;
+    padding: 0.8rem;
     background: #ffffff;
     color: #25D366;
-    border: 1px solid #25D366;
+    border: 1px solid rgba(37, 211, 102, 0.5);
     font-family: var(--font-poppins);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    border-radius: 50px;
+    border-radius: 8px;
     text-decoration: none;
-    margin-top: 0.5rem;
     transition: all 0.3s ease;
   }
 
   .mobileWhatsappBtn:hover {
-    background: #25D366;
-    color: #ffffff;
+    background: #f0fdf4;
+    border-color: #25D366;
   }
 }

@@ -8,10 +8,10 @@ import styles from "./Navbar.module.css";
 import { BrandLogo } from "./BrandLogo";
 
 const navLinks = [
-  { href: "/", label: "HOME" },
-  { href: "/services", label: "PRODUCTS" },
-  { href: "/about", label: "ABOUT US" },
-  { href: "/contact", label: "CONTACT" },
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Products" },
+  { href: "/about", label: "About Us" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function Navbar() {
@@ -68,6 +68,7 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <div className={styles.mobileDivider} />
             <a href="https://wa.me/61481369018" target="_blank" rel="noopener noreferrer" className={styles.mobileWhatsappBtn} onClick={() => setMenuOpen(false)}>
               <MessageCircle size={18} /> WhatsApp
             </a>
