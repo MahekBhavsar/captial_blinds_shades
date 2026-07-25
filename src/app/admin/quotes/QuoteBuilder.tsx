@@ -120,7 +120,7 @@ export default function QuoteBuilder({ quoteReq, onClose }: QuoteBuilderProps) {
           phone: phone || "",
           companyName: clientName,
           serviceRequested: items.map(i => i.description).filter(Boolean),
-          status: "Reviewed",
+          status: "In Progress",
           createdAt: new Date(),
           updatedAt: new Date(),
           quoteData

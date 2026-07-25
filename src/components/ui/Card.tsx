@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Card.module.css";
+
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -7,7 +7,11 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function Card({ children, className = "", ...props }: CardProps) {
   return (
-    <div className={`glass-card ${styles.card} ${className}`} {...props}>
+    <div 
+      className={`glass-card ${className}`} 
+      style={{ padding: props.style?.padding || "1.75rem", ...props.style }}
+      {...props}
+    >
       {children}
     </div>
   );

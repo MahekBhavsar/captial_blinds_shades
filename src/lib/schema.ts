@@ -32,7 +32,7 @@ export const QuoteSchema = z.object({
   description: z.string().optional(),
   artworkUrls: z.array(z.string()).optional(), // URLs from Firebase Storage
   quoteData: z.any().optional(), // Stores the generated Quote details (prices, items)
-  status: z.enum(["Pending", "Reviewed", "In Progress", "Completed", "Cancelled"]).default("Pending"),
+  status: z.enum(["Pending", "In Progress", "Completed", "Cancelled"]).default("Pending"),
   createdAt: z.date(),
   updatedAt: z.date(),
 });

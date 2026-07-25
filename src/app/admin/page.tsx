@@ -9,43 +9,70 @@ import type { QuoteDocument } from "@/lib/schema";
 import Link from "next/link";
 
 const mockChartData = [
-  { day: "Mon", count: 4 },
-  { day: "Tue", count: 7 },
-  { day: "Wed", count: 3 },
-  { day: "Thu", count: 8 },
-  { day: "Fri", count: 5 },
-  { day: "Sat", count: 2 },
-  { day: "Sun", count: 6 }
+  { day: "Mon", count: 0 },
+  { day: "Tue", count: 0 },
+  { day: "Wed", count: 0 },
+  { day: "Thu", count: 0 },
+  { day: "Fri", count: 0 },
+  { day: "Sat", count: 0 },
+  { day: "Sun", count: 0 }
 ];
-const maxCount = Math.max(...mockChartData.map(d => d.count));
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ quotes: 0, users: 0 });
   const [recentQuotes, setRecentQuotes] = useState<QuoteDocument[]>([]);
+  const [chartData, setChartData] = useState<{day: string, count: number}[]>(mockChartData);
   const [loading, setLoading] = useState(true);
+  
+  const maxCount = Math.max(...chartData.map(d => d.count), 1);
 
   useEffect(() => {
-    // Set up real-time listener for quotes
-    const q = query(collections.quotes, orderBy("createdAt", "desc"), limit(5));
+    // Fetch users count once
+    const fetchUsers = async () => {
+      const usersSnapshot = await getDocs(collections.users);
+      setStats(prev => ({ ...prev, users: usersSnapshot.size }));
+    };
+    fetchUsers();
+
+    // Set up real-time listener for ALL quotes
+    const qQuotes = query(collections.quotes, orderBy("createdAt", "desc"));
     
-    const unsubscribeQuotes = onSnapshot(q, (snapshot) => {
-      const quotesData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setRecentQuotes(quotesData);
-      setStats(prev => ({ ...prev, quotes: snapshot.size })); // Note: this is only the size of the limited query. For full count we need a different approach, but this is ok for a simple dashboard.
+    const unsubscribeQuotes = onSnapshot(qQuotes, (snapshot) => {
+      const allQuotes = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      
+      // Top 5 for recent table
+      setRecentQuotes(allQuotes.slice(0, 5));
+      
+      // Total count
+      setStats(prev => ({ ...prev, quotes: allQuotes.length }));
+
+      // Chart data (last 7 days)
+      const last7Days: { dateObj: Date; day: string; count: number }[] = [];
+      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        d.setHours(0, 0, 0, 0);
+        last7Days.push({
+          dateObj: d,
+          day: dayNames[d.getDay()],
+          count: 0
+        });
+      }
+
+      allQuotes.forEach(q => {
+        if (!q.createdAt) return;
+        const qDate = new Date((q.createdAt as any).seconds * 1000);
+        qDate.setHours(0, 0, 0, 0);
+        const bucket = last7Days.find(b => b.dateObj.getTime() === qDate.getTime());
+        if (bucket) {
+          bucket.count++;
+        }
+      });
+
+      setChartData(last7Days.map(b => ({ day: b.day, count: b.count })));
       setLoading(false);
     });
-
-    // Fetch other stats once
-    const fetchStats = async () => {
-      const usersSnapshot = await getDocs(collections.users);
-      
-      setStats(prev => ({
-        ...prev,
-        users: usersSnapshot.size
-      }));
-    };
-    
-    fetchStats();
 
     return () => unsubscribeQuotes();
   }, []);
@@ -81,11 +108,11 @@ export default function AdminDashboard() {
         <Card className="glass-card" style={{ padding: "2rem", border: "1px solid rgba(201, 168, 76, 0.15)", boxShadow: "0 10px 30px rgba(0,0,0,0.02)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2.5rem" }}>
             <h3 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.2rem", color: "var(--nb-navy)", margin: 0 }}>Quote Activity (Last 7 Days)</h3>
-            <span style={{ fontSize: "0.85rem", color: "rgba(12, 27, 58, 0.5)", fontWeight: 500, background: "rgba(12, 27, 58, 0.05)", padding: "0.2rem 0.6rem", borderRadius: "10px" }}>Live Data (Mocked)</span>
+            <span style={{ fontSize: "0.85rem", color: "#10b981", fontWeight: 600, background: "rgba(16, 185, 129, 0.1)", padding: "0.2rem 0.6rem", borderRadius: "10px" }}>Live Data</span>
           </div>
           
           <div style={{ display: "flex", alignItems: "flex-end", height: "200px", gap: "1rem", paddingBottom: "1rem", borderBottom: "1px solid rgba(12, 27, 58, 0.1)" }}>
-            {mockChartData.map((data, idx) => {
+            {chartData.map((data, idx) => {
               const heightPercent = (data.count / maxCount) * 100;
               return (
                 <div key={idx} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem", height: "100%" }}>

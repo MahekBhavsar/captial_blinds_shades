@@ -261,4 +261,11 @@
   .formGrid {
     grid-template-columns: 1fr;
   }
+  .row {
+    flex-direction: column;
+    gap: 0;
+  }
+  .itemsTable {
+    min-width: 650px;
+  }
 }

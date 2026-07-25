@@ -57,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${cinzel.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${cinzel.variable}`}>
       <body className="antialiased" suppressHydrationWarning>
         {children}
         <WhatsAppFloatingBtn />

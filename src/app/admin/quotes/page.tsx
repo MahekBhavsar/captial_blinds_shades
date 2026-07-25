@@ -84,7 +84,7 @@ export default function QuotesPage() {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "2rem" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", justifyContent: "flex-end" }}>
           <button 
             onClick={() => setSelectedQuoteToBuild({ 
               id: "new", 
@@ -98,7 +98,7 @@ export default function QuotesPage() {
               createdAt: new Date(),
               updatedAt: new Date()
             })}
-            style={{ background: "#10b981", color: "white", border: "none", padding: "0.6rem 1.2rem", borderRadius: "8px", display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer", fontWeight: 500 }}
+            style={{ background: "#10b981", color: "white", border: "none", padding: "0.6rem 1.2rem", borderRadius: "8px", display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer", fontWeight: 500, whiteSpace: "nowrap" }}
           >
             <FileText size={18} /> Create New Quote
           </button>
@@ -165,7 +165,7 @@ export default function QuotesPage() {
                         }}
                       >
                         <option value="Pending">Pending</option>
-                        <option value="Reviewed">Reviewed</option>
+
                         <option value="In Progress">In Progress</option>
                         <option value="Completed">Completed</option>
                         <option value="Cancelled">Cancelled</option>
@@ -210,13 +210,13 @@ export default function QuotesPage() {
               <div>
                 <strong>Description:</strong>
                 <p style={{ background: "#f1f5f9", padding: "1rem", borderRadius: "8px", marginTop: "0.5rem", whiteSpace: "pre-wrap" }}>
-                  {selectedQuote.description}
+                  {selectedQuote.description || "N/A"}
                 </p>
               </div>
             </div>
 
             <div style={{ marginTop: "2rem", display: "flex", justifyContent: "flex-end" }}>
-              <button onClick={() => setSelectedQuote(null)} style={{ padding: "0.6rem 1.5rem", background: "#f8fafc", border: "1px solid #e2e8f0", color: "white", borderRadius: "8px", cursor: "pointer", transition: "all 0.2s" }} onMouseOver={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"} onMouseOut={e => e.currentTarget.style.background = "rgba(255,255,255,0.05)"}>Close</button>
+              <button onClick={() => setSelectedQuote(null)} style={{ padding: "0.6rem 1.5rem", background: "var(--color-primary, #0C1B3A)", border: "none", color: "white", borderRadius: "8px", cursor: "pointer", transition: "all 0.2s", fontWeight: 600 }} onMouseOver={e => e.currentTarget.style.opacity = "0.9"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>Close</button>
             </div>
           </div>
         </div>

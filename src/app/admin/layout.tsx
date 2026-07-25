@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { LayoutDashboard, Image as ImageIcon, MessageSquare, Settings, LogOut, Users, FileText, Briefcase, Receipt, Lock, User as UserIcon } from "lucide-react";
+import { LayoutDashboard, Image as ImageIcon, MessageSquare, Settings, LogOut, Users, FileText, Briefcase, Receipt, Lock, User as UserIcon, Menu, X } from "lucide-react";
 import styles from "./AdminLayout.module.css";
 import { usePathname, useRouter } from "next/navigation";
 import { app } from "@/lib/firebase";
@@ -15,6 +15,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   // Login Form State
   const [email, setEmail] = useState("");
@@ -133,16 +134,29 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <div className={`${styles.layout} admin-theme`}>
-      <aside className={styles.sidebar}>
+      <div className={styles.mobileHeader}>
         <div className={styles.brand}>
+          <LayoutDashboard size={20} />
+          <span>CBS Admin Panel</span>
+        </div>
+        <button onClick={() => setSidebarOpen(!sidebarOpen)} className={styles.hamburger}>
+          {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {sidebarOpen && <div className={styles.sidebarOverlay} onClick={() => setSidebarOpen(false)} />}
+
+      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ""}`}>
+        <div className={`${styles.brand} ${styles.desktopBrand}`}>
           <LayoutDashboard size={24} />
-          <span>Admin Panel</span>
+          <span>CBS Admin Panel</span>
         </div>
         <nav className={styles.nav}>
           {links.map((link) => (
             <Link 
               key={link.href} 
               href={link.href}
+              onClick={() => setSidebarOpen(false)}
               className={`${styles.navLink} ${pathname === link.href ? styles.active : ""}`}
             >
               {link.icon}
@@ -160,10 +174,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <h1 className={styles.title}>
             {links.find(l => l.href === pathname)?.label || "Dashboard Overview"}
           </h1>
-          <div className={styles.user}>
-            <span>Welcome, {user.email?.split('@')[0]}</span>
-            <div className={styles.avatar}>{user.email?.charAt(0).toUpperCase()}</div>
-          </div>
+          {pathname === "/admin" && (
+            <div className={styles.user}>
+              <span>Welcome, {user.email?.split('@')[0]}</span>
+              <div className={styles.avatar}>{user.email?.charAt(0).toUpperCase()}</div>
+            </div>
+          )}
         </header>
         {children}
       </main>
