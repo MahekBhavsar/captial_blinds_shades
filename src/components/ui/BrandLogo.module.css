@@ -105,4 +105,10 @@
 @media (max-width: 768px) {
   .sm .logoImg { width: 36px !important; height: 36px !important; }
   .sm .word    { font-size: 0.95rem; }
+  
+  .md .logoImg { width: 44px !important; height: 44px !important; }
+  .md .word    { font-size: 1.15rem; }
+  
+  .lg .logoImg { width: 54px !important; height: 54px !important; }
+  .lg .word    { font-size: 1.35rem; }
 }

@@ -6,7 +6,7 @@
 .footer {
   background: #f8f6f2;
   color: #0C1B3A;
-  padding: 4rem clamp(2rem, 5vw, 4rem) 0;
+  padding: 4rem clamp(1.5rem, 5vw, 4rem) 0;
   position: relative;
   border-top: 1px solid rgba(201, 168, 76, 0.3);
 }
