@@ -1,0 +1,108 @@
+/* ================================================
+   BRAND LOGO — Animated shimmer brand name
+   Gold × Navy Blue colour animation
+   ================================================ */
+
+.root {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+/* ── Logo image wrapper ── */
+.logoWrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  animation: logoFloat 3.5s ease-in-out infinite;
+}
+
+.logoImg {
+  object-fit: contain;
+  border-radius: 50%;
+  display: block;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.18));
+  transition: transform 0.35s ease;
+}
+
+.root:hover .logoImg {
+  transform: rotate(8deg) scale(1.08);
+}
+
+/* ── Word row ── */
+.mainLine {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+}
+
+/* Base word style — gradient shimmer via background-clip */
+.word {
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  display: inline-block;
+  line-height: 1.15;
+
+  /* Shimmer gradient: navy → gold → navy → gold stretched wide so it sweeps */
+  background: linear-gradient(
+    90deg,
+    #0C1B3A 0%,
+    #0C1B3A 20%,
+    #C9A84C 35%,
+    #F0D080 50%,
+    #C9A84C 65%,
+    #0C1B3A 80%,
+    #0C1B3A 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  /* Float up-down */
+  animation: wordFloat 3.5s ease-in-out infinite,
+             shimmer 3.8s linear infinite;
+}
+
+/* Stagger the float so each word bobs independently */
+.capital  { animation-delay: 0s,    0s; }
+.blinds   { animation-delay: 0.15s, 0.6s; }
+.and_word { animation-delay: 0.3s,  1.2s; }
+.shades   { animation-delay: 0.45s, 1.8s; }
+
+/* ── Size variants ── */
+.sm .logoImg { width: 44px !important; height: 44px !important; }
+.sm .word    { font-size: 1.15rem; }
+
+.md .logoImg { width: 54px !important; height: 54px !important; }
+.md .word    { font-size: 1.4rem; }
+
+.lg .logoImg { width: 68px !important; height: 68px !important; }
+.lg .word    { font-size: 1.8rem; }
+
+/* ── Keyframes ── */
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+
+@keyframes wordFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-3px); }
+}
+
+/* Shimmer: slide the gradient across each word */
+@keyframes shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .sm .logoImg { width: 36px !important; height: 36px !important; }
+  .sm .word    { font-size: 0.95rem; }
+}

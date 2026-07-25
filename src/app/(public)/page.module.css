@@ -34,19 +34,7 @@
 }
 
 
-/* ══════════════════════════════════════════════
-   SCROLL REVEAL SYSTEM
-   ══════════════════════════════════════════════ */
-.reveal {
-  opacity: 0;
-  transform: translateY(36px);
-  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
-}
 
-.reveal.inView {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 
 /* ══════════════════════════════════════════════
@@ -493,7 +481,7 @@
    ══════════════════════════════════════════════ */
 .products {
   background: var(--stone);
-  padding: 7rem clamp(1.5rem, 4vw, 5rem);
+  padding: 5rem clamp(1.5rem, 4vw, 5rem);
 }
 
 .sectionWrap {
@@ -504,7 +492,7 @@
 .sectionHead {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   margin-bottom: 3rem;
   gap: 2rem;
 }
@@ -640,6 +628,7 @@
 .productCard {
   position: relative;
   display: block;
+  height: 100%;
   border-radius: 20px;
   overflow: hidden;
   text-decoration: none;

@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { QuoteSchema, type QuoteDocument } from "@/lib/schema";
 import { collections, db } from "@/lib/firebase";
-import { addDoc, doc, onSnapshot } from "firebase/firestore";
+import { addDoc, doc, onSnapshot, getDocs, query, where } from "firebase/firestore";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Phone, Mail, CheckCircle2, ChevronRight, ChevronLeft } from "lucide-react";
+import { MapPin, Phone, Mail, CheckCircle2, ChevronRight, ChevronLeft, Clock } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import styles from "./page.module.css";
 import { useEffect } from "react";
@@ -61,6 +61,23 @@ export default function ContactPage() {
       data.createdAt = new Date();
       data.updatedAt = new Date();
       await addDoc(collections.quotes, data);
+      
+      // Add as a Lead in Users Section if they don't exist
+      const userQuery = query(collections.users, where("email", "==", data.email));
+      const userSnap = await getDocs(userQuery);
+      if (userSnap.empty) {
+        await addDoc(collections.users, {
+          email: data.email,
+          displayName: `${data.firstName} ${data.lastName}`.trim(),
+          phone: data.phone,
+          companyName: data.companyName || "N/A",
+          serviceRequested: data.serviceRequested || [],
+          role: "lead",
+          processStatus: "Pending",
+          createdAt: new Date(),
+        });
+      }
+
       setIsSuccess(true);
     } catch (error) {
       console.error("Error submitting quote", error);
@@ -117,6 +134,15 @@ export default function ContactPage() {
                 <h3>Email Us</h3>
                 <p><a href="mailto:sales@capitalblindandshades.com.au">sales@capitalblindandshades.com.au</a></p>
                 <p>We reply within 24 hours</p>
+              </div>
+            </div>
+
+            <div className={styles.contactCard}>
+              <div className={styles.iconWrapper}><Clock size={22} /></div>
+              <div className={styles.detailText}>
+                <h3>Shop Time</h3>
+                <p>Monday to Friday</p>
+                <p>8AM to 5PM AEST</p>
               </div>
             </div>
           </motion.div>

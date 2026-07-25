@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { Phone, Mail, MapPin, Globe } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import styles from "./Footer.module.css";
+import { BrandLogo } from "./BrandLogo";
 
 function FacebookIcon({ size = 16 }: { size?: number }) {
   return (
@@ -31,19 +31,7 @@ export function Footer() {
       <div className={styles.content}>
         {/* COL 1: Brand */}
         <div className={styles.brandCol}>
-          <Link href="/" className={styles.logo}>
-            <Image
-              src="/logo.png"
-              alt="Capital Blinds and Shades"
-              width={56}
-              height={56}
-              className={styles.logoImage}
-            />
-            <div className={styles.logoText}>
-              <span className={styles.logoMain}>CAPITAL</span>
-              <span className={styles.logoTag}>BLINDS AND SHADES</span>
-            </div>
-          </Link>
+          <BrandLogo size="md" href="/" />
           <p className={styles.brandDesc}>
             Style your space.<br />
             Elevate your living.

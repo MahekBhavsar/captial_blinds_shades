@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -19,13 +20,13 @@ import {
 import styles from "./page.module.css";
 
 const products = [
-  { title: "Roller Blinds", desc: "Sleek, versatile & effortless", img: "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=800&auto=format&fit=crop", span: "tall" },
-  { title: "Vertical Blinds", desc: "Perfect for large windows", img: "https://images.unsplash.com/photo-1589834390005-5d4fb9bf3d32?q=80&w=800&auto=format&fit=crop", span: "short" },
-  { title: "Sheer Curtains", desc: "Soft light, total elegance", img: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=800&auto=format&fit=crop", span: "short" },
-  { title: "Blockout Curtains", desc: "Complete darkness, total comfort", img: "https://images.unsplash.com/photo-1583847268964-b28ce8f30e9b?q=80&w=800&auto=format&fit=crop", span: "short" },
-  { title: "Verishade Blinds", desc: "Curtains meets blinds", img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop", span: "tall" },
-  { title: "Plantation Shutters", desc: "Timeless beauty, lasting quality", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop", span: "tall" },
-  { title: "Motorised Solution", desc: "Smart living, effortlessly elevated", img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=800&auto=format&fit=crop", span: "short" },
+  { title: "Roller Blinds", desc: "Sleek, versatile & effortless", img: "https://northsolarscreen.com/wp-content/uploads/2013/11/cellular-shades.jpg", span: "tall" },
+  { title: "Vertical Blinds", desc: "Perfect for large windows", img: "https://www.norwichsunblinds.co.uk/wp-content/uploads/2016/09/LL-Vertical-blind-Chenille-mauve.jpg", span: "short" },
+  { title: "Sheer Curtains", desc: "Soft light, total elegance", img: "https://tse1.mm.bing.net/th/id/OIP.BLCxmNpMUedlL2bTd_1LHgHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3", span: "short" },
+  { title: "Blockout Curtains", desc: "Complete darkness, total comfort", img: "https://tse1.mm.bing.net/th/id/OIP.AtUVQdiSU-GrQ4LUgw7SBAHaFj?r=0&rs=1&pid=ImgDetMain&o=7&rm=3", span: "short" },
+  { title: "Verishade Blinds", desc: "Curtains meets blinds", img: "https://tse1.mm.bing.net/th/id/OIP.tvnVtAbQu0U0gZXyrMXZPAHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3", span: "tall" },
+  { title: "Plantation Shutters", desc: "Timeless beauty, lasting quality", img: "https://miro.medium.com/max/8524/1*mUueHmsKpysal07B__UzEw.jpeg", span: "tall" },
+  { title: "Motorised Solution", desc: "Smart living, effortlessly elevated", img: "https://tse4.mm.bing.net/th/id/OIP.Vjo0ayQqGdIIPOzJ3mzDeQHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3", span: "short" },
 ];
 
 const stats = [
@@ -48,6 +49,21 @@ const reviews = [
   { name: "Priya K.", text: "Transformed our living room completely. The shutters are gorgeous and installation was seamless.", rating: 5 },
 ];
 
+/* ─── ANIMATION VARIANTS ─── */
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
 /* ─── COMPONENT ─── */
 export default function Home() {
@@ -63,21 +79,11 @@ export default function Home() {
   const handleFeedbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFeedbackSubmitted(true);
-    setTimeout(() => setFeedbackSubmitted(false), 5000); // reset after 5s
+    setTimeout(() => setFeedbackSubmitted(false), 5000);
     setFeedbackName("");
     setFeedbackRating(5);
     setFeedbackText("");
   };
-
-  /* Scroll-reveal */
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add(styles.inView); }),
-      { threshold: 0.12, rootMargin: "0px 0px -50px 0px" }
-    );
-    document.querySelectorAll(`.${styles.reveal}`).forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
 
   /* Auto-advance reviews */
   useEffect(() => {
@@ -85,17 +91,9 @@ export default function Home() {
     return () => clearInterval(t);
   }, []);
 
-  /* Parallax on hero image */
-  const heroImgRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const onScroll = () => {
-      if (heroImgRef.current) {
-        heroImgRef.current.style.transform = `translateY(${window.scrollY * 0.25}px)`;
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  /* Parallax via Framer Motion */
+  const { scrollY } = useScroll();
+  const yHeroBg = useTransform(scrollY, [0, 1000], [0, 250]);
 
   return (
     <main className={styles.main}>
@@ -106,7 +104,7 @@ export default function Home() {
       <section className={styles.hero}>
 
         {/* Parallax background image */}
-        <div className={styles.heroBgWrap} ref={heroImgRef}>
+        <motion.div className={styles.heroBgWrap} style={{ y: yHeroBg }}>
           <Image
             src="/hero-bg.jpg"
             alt="Luxury interior with custom window blinds"
@@ -116,42 +114,52 @@ export default function Home() {
             onLoad={() => setHeroLoaded(true)}
             sizes="100vw"
           />
-        </div>
+        </motion.div>
         <div className={styles.heroVeil} />
 
         {/* Content */}
-        <div className={`${styles.heroContent} ${heroLoaded ? styles.heroVisible : ""}`}>
-          <div className={styles.heroTag}>
+        <motion.div 
+          className={`${styles.heroContent} ${heroLoaded ? styles.heroVisible : ""}`}
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeUp} className={styles.heroTag}>
             <span className={styles.heroDot} />
             Premium Window Furnishings · Australia
-          </div>
+          </motion.div>
 
-          <h1 className={styles.heroHeading}>
+          <motion.h1 variants={fadeUp} className={styles.heroHeading}>
             <span className={styles.hLine1}>Custom Blinds</span>
             <span className={styles.hLine2}>&amp; Curtains</span>
             <span className={styles.hLine3}>Made for <em>Your</em> Home.</span>
-          </h1>
+          </motion.h1>
 
-          <p className={styles.heroSub}>
+          <motion.p variants={fadeUp} className={styles.heroSub}>
             Bespoke window furnishings, crafted to order. Expert installation.
             Timeless quality that transforms every room.
-          </p>
+          </motion.p>
 
-          <div className={styles.heroCtas}>
+          <motion.div variants={fadeUp} className={styles.heroCtas}>
             <Link href="/contact" className={styles.btnSolid}>
               Book Free Measure <ArrowRight size={15} />
             </Link>
             <Link href="/services" className={styles.btnLine}>
               View Collection <ArrowUpRight size={15} />
             </Link>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Scroll cue */}
-        <div className={styles.scrollCue}>
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          transition={{ delay: 1, duration: 1 }} 
+          className={styles.scrollCue}
+        >
           <span className={styles.scrollBar} />
           <span className={styles.scrollLabel}>scroll</span>
-        </div>
+        </motion.div>
 
         {/* Bottom wave divider */}
         <div className={styles.heroWave}>
@@ -161,19 +169,23 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* ════════════════════════════
           STATS STRIP
       ════════════════════════════ */}
-      <section className={styles.statsStrip}>
+      <motion.section 
+        className={styles.statsStrip}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
+        variants={staggerContainer}
+      >
         {stats.map((s, i) => (
-          <div key={i} className={`${styles.statItem} ${styles.reveal}`} style={{ transitionDelay: `${i * 0.1}s` }}>
+          <motion.div key={i} variants={fadeUp} className={styles.statItem}>
             <span className={styles.statNum}>{s.num}</span>
             <span className={styles.statLabel}>{s.label}</span>
-          </div>
+          </motion.div>
         ))}
-      </section>
-
+      </motion.section>
 
       {/* ════════════════════════════
           SCROLLING MARQUEE
@@ -188,14 +200,18 @@ export default function Home() {
         </div>
       </div>
 
-
       {/* ════════════════════════════
           PRODUCTS GRID
       ════════════════════════════ */}
       <section className={styles.products}>
         <div className={styles.sectionWrap}>
-
-          <div className={`${styles.sectionHead} ${styles.reveal}`}>
+          <motion.div 
+            className={styles.sectionHead}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.3 }}
+            variants={fadeUp}
+          >
             <div>
               <span className={styles.eyebrow}>Our Collection</span>
               <h2 className={styles.h2Light}>
@@ -205,33 +221,38 @@ export default function Home() {
             <Link href="/services" className={styles.seeAll}>
               Browse all products <ChevronRight size={16} />
             </Link>
-          </div>
+          </motion.div>
 
-          <div className={styles.productGrid}>
+          <motion.div 
+            className={styles.productGrid}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.1 }}
+            variants={staggerContainer}
+          >
             {products.slice(0, 3).map((p, i) => (
-              <Link
-                href="/services"
-                key={i}
-                className={`${styles.productCard} ${styles.reveal}`}
-                style={{ transitionDelay: `${i * 0.07}s` }}
-              >
-                <div className={styles.productImgBox}>
-                  <Image src={p.img} alt={p.title} fill className={styles.productImg} sizes="(max-width:768px) 100vw, 33vw" />
-                  <div className={styles.productFade} />
-                </div>
-                <div className={styles.productInfo}>
-                  <div>
-                    <h3 className={styles.productName}>{p.title}</h3>
-                    <p className={styles.productNote}>{p.desc}</p>
+              <motion.div key={i} variants={fadeUp} whileHover={{ scale: 1.02 }} transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4 }}>
+                <Link
+                  href="/services"
+                  className={styles.productCard}
+                >
+                  <div className={styles.productImgBox}>
+                    <Image src={p.img} alt={p.title} fill className={styles.productImg} sizes="(max-width:768px) 100vw, 33vw" />
+                    <div className={styles.productFade} />
                   </div>
-                  <span className={styles.productArrow}><ArrowUpRight size={16} /></span>
-                </div>
-              </Link>
+                  <div className={styles.productInfo}>
+                    <div>
+                      <h3 className={styles.productName}>{p.title}</h3>
+                      <p className={styles.productNote}>{p.desc}</p>
+                    </div>
+                    <span className={styles.productArrow}><ArrowUpRight size={16} /></span>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
-
 
       {/* ════════════════════════════
           WHY US — SPLIT
@@ -241,7 +262,13 @@ export default function Home() {
           <div className={styles.whyGrid}>
 
             {/* Image side */}
-            <div className={`${styles.whyImgSide} ${styles.reveal}`}>
+            <motion.div 
+              className={styles.whyImgSide}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
               <div className={styles.whyImgFrame}>
                 <Image
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop"
@@ -269,36 +296,44 @@ export default function Home() {
                 <p>&ldquo;Absolutely transformed our home. Couldn&rsquo;t be happier!&rdquo;</p>
                 <strong>— Emma R.</strong>
               </div>
-            </div>
+            </motion.div>
 
             {/* Copy side */}
-            <div className={`${styles.whyCopy} ${styles.reveal}`} style={{ transitionDelay: "0.15s" }}>
-              <span className={styles.eyebrowDark}>Why Capital Blinds?</span>
-              <h2 className={styles.h2Dark}>
+            <motion.div 
+              className={styles.whyCopy}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.3 }}
+              variants={staggerContainer}
+            >
+              <motion.span variants={fadeUp} className={styles.eyebrowDark}>Why Capital Blinds?</motion.span>
+              <motion.h2 variants={fadeUp} className={styles.h2Dark}>
                 Precision meets <br /><em>Elegance.</em>
-              </h2>
-              <p className={styles.whyDesc}>
+              </motion.h2>
+              <motion.p variants={fadeUp} className={styles.whyDesc}>
                 We don&rsquo;t just sell window furnishings — we craft bespoke solutions
                 that transform your home. Every measurement, material, and installation
                 is handled by our expert team with uncompromising attention to detail.
-              </p>
+              </motion.p>
 
-              <ul className={styles.featureList}>
+              <motion.ul variants={staggerContainer} className={styles.featureList}>
                 {features.map((f, i) => (
-                  <li key={i} className={styles.featureItem} style={{ animationDelay: `${i * 0.1}s` }}>
+                  <motion.li key={i} variants={fadeUp} className={styles.featureItem}>
                     <span className={styles.featureIcon}>{f.icon}</span>
                     <div>
                       <h4>{f.title}</h4>
                       <p>{f.desc}</p>
                     </div>
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
 
-              <Link href="/about" className={styles.btnOutline}>
-                Our Story <ArrowRight size={15} />
-              </Link>
-            </div>
+              <motion.div variants={fadeUp}>
+                <Link href="/about" className={styles.btnOutline}>
+                  Our Story <ArrowRight size={15} />
+                </Link>
+              </motion.div>
+            </motion.div>
 
           </div>
         </div>
@@ -309,7 +344,13 @@ export default function Home() {
       ════════════════════════════ */}
       <section className={styles.feedbackSection}>
         <div className={styles.sectionWrap} style={{ position: 'relative', zIndex: 2 }}>
-          <div className={styles.feedbackContainer}>
+          <motion.div 
+            className={styles.feedbackContainer}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div className={styles.feedbackLeft}>
               <span className={styles.eyebrowDark} style={{ marginLeft: "-36px" }}>Share Your Experience</span>
               <h2 className={styles.h2Dark} style={{ textAlign: "left" }}>
@@ -322,11 +363,15 @@ export default function Home() {
             
             <div className={styles.feedbackRight}>
               {feedbackSubmitted ? (
-                <div className={styles.feedbackSuccess}>
+                <motion.div 
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className={styles.feedbackSuccess}
+                >
                   <CheckCircle2 size={48} color="var(--gold)" />
                   <h3>Thank You!</h3>
                   <p>We appreciate your valuable feedback.</p>
-                </div>
+                </motion.div>
               ) : (
                 <form onSubmit={handleFeedbackSubmit} className={styles.feedbackForm}>
                   <div className={styles.formRow}>
@@ -367,25 +412,36 @@ export default function Home() {
                 </form>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
-
-
 
       {/* ════════════════════════════
           REVIEWS CAROUSEL
       ════════════════════════════ */}
       <section className={styles.reviews}>
         <div className={styles.sectionWrap}>
-          <div className={`${styles.sectionHead} ${styles.reveal}`} style={{ justifyContent: "center", textAlign: "center" }}>
+          <motion.div 
+            className={styles.sectionHead} 
+            style={{ justifyContent: "center", textAlign: "center" }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div>
               <span className={styles.eyebrow}>What Customers Say</span>
               <h2 className={styles.h2Light}>Real Stories. <span style={{ color: "var(--gold)" }}>Real Results.</span></h2>
             </div>
-          </div>
+          </motion.div>
 
-          <div className={`${styles.reviewMarquee} ${styles.reveal}`}>
+          <motion.div 
+            className={styles.reviewMarquee}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 1 }}
+          >
             <div className={styles.reviewTrack}>
               {[...reviews, ...reviews, ...reviews, ...reviews].map((r, i) => (
                 <div key={i} className={styles.reviewCard}>
@@ -402,15 +458,20 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
-
 
       {/* ════════════════════════════
           CTA BAND
       ════════════════════════════ */}
-      <section className={`${styles.ctaBand} ${styles.reveal}`}>
+      <motion.section 
+        className={styles.ctaBand}
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      >
         <div className={styles.ctaGlow} />
         <div className={styles.ctaContent}>
           <div>
@@ -437,7 +498,7 @@ export default function Home() {
           <HomeIcon size={80} strokeWidth={0.5} />
           <Zap size={50} strokeWidth={0.5} />
         </div>
-      </section>
+      </motion.section>
 
     </main>
   );

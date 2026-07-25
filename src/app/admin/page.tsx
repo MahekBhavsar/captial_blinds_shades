@@ -20,7 +20,7 @@ const mockChartData = [
 const maxCount = Math.max(...mockChartData.map(d => d.count));
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState({ quotes: 0, portfolio: 0, users: 0, blogs: 0 });
+  const [stats, setStats] = useState({ quotes: 0, users: 0 });
   const [recentQuotes, setRecentQuotes] = useState<QuoteDocument[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,14 +37,10 @@ export default function AdminDashboard() {
 
     // Fetch other stats once
     const fetchStats = async () => {
-      const portfolioSnapshot = await getDocs(collections.portfolio);
-      const blogSnapshot = await getDocs(collections.blogPosts);
       const usersSnapshot = await getDocs(collections.users);
       
       setStats(prev => ({
         ...prev,
-        portfolio: portfolioSnapshot.size,
-        blogs: blogSnapshot.size,
         users: usersSnapshot.size
       }));
     };
@@ -56,8 +52,6 @@ export default function AdminDashboard() {
 
   const statCards = [
     { title: "Total Quotes", value: stats.quotes > 4 ? "5+" : stats.quotes.toString(), icon: <MessageSquare size={24} color="#2D9CDB" />, trend: "+12%", bg: "rgba(45, 156, 219, 0.1)" },
-    { title: "Portfolio Items", value: stats.portfolio.toString(), icon: <ImageIcon size={24} color="#C2188B" />, trend: "+2", bg: "rgba(194, 24, 139, 0.1)" },
-    { title: "Blog Posts", value: stats.blogs.toString(), icon: <FileText size={24} color="#E6A623" />, trend: "Steady", bg: "rgba(230, 166, 35, 0.1)" },
     { title: "Active Users", value: stats.users.toString(), icon: <Users size={24} color="#10b981" />, trend: "+15%", bg: "rgba(16, 185, 129, 0.1)" },
   ];
 

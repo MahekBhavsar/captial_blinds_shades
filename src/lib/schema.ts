@@ -5,10 +5,14 @@ import { z } from "zod";
 // ==========================================
 export const UserSchema = z.object({
   id: z.string().optional(),
-  uid: z.string(),
+  uid: z.string().optional(),
   email: z.string().email(),
   displayName: z.string().optional(),
-  role: z.enum(["admin", "user"]),
+  phone: z.string().optional(),
+  role: z.enum(["admin", "user", "lead"]),
+  processStatus: z.enum(["Pending", "Completed", "Rejected"]).default("Pending"),
+  companyName: z.string().optional(),
+  serviceRequested: z.array(z.string()).optional(),
   createdAt: z.date(),
   lastLoginAt: z.date().optional(),
 });
@@ -113,15 +117,35 @@ export type SettingsDocument = z.infer<typeof SettingsSchema>;
 // ==========================================
 // 7. Service Schema
 // ==========================================
+export const ServiceFeatureSchema = z.object({
+  iconName: z.string(), // e.g. "Sun", "Shield", "Leaf"
+  label: z.string(),    // e.g. "Light Control"
+  value: z.string(),    // e.g. "Full to Filtered"
+});
+
+export const ServiceSpecSchema = z.object({
+  label: z.string(),   // e.g. "Max Width"
+  value: z.string(),   // e.g. "Up to 3.5m"
+});
+
 export const ServiceSchema = z.object({
   id: z.string().optional(),
   title: z.string(),
-  desc: z.string(), // Short description
-  longContent: z.string().optional(), // For popup
-  iconName: z.string(), // store lucide icon name as string
+  desc: z.string(),               // Short description on the card
+  tagline: z.string().optional(), // Italic subtitle shown in popup header
+  longContent: z.string().optional(), // Extended description in popup
+  imageUrl: z.string().optional(), // Custom image URL for this service
+  iconName: z.string(),            // Lucide icon name for the card
   color: z.string(),
-  importantWords: z.array(z.string()).optional(), // Words to highlight in description/content
+  importantWords: z.array(z.string()).optional(),
+  benefits: z.array(z.string()).optional(),          // "Why Choose" bullets
+  features: z.array(ServiceFeatureSchema).optional(), // 4 quick-feature tiles
+  specs: z.array(ServiceSpecSchema).optional(),       // Spec table rows
+  fabrics: z.array(z.string()).optional(),            // Fabric/finish chips
   order: z.number().default(0),
   createdAt: z.date().optional(),
 });
 export type ServiceDocument = z.infer<typeof ServiceSchema>;
+export type ServiceFeature = z.infer<typeof ServiceFeatureSchema>;
+export type ServiceSpec = z.infer<typeof ServiceSpecSchema>;
+

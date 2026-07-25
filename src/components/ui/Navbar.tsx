@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X, FileSignature } from "lucide-react";
 import styles from "./Navbar.module.css";
+import { BrandLogo } from "./BrandLogo";
 
 const navLinks = [
   { href: "/", label: "HOME" },
@@ -30,20 +30,7 @@ export function Navbar() {
       <nav className={styles.nav}>
         
         {/* LOGO */}
-        <Link href="/" className={styles.logo}>
-          <Image
-            src="/logo.png"
-            alt="Capital Blinds and Shades"
-            width={56}
-            height={56}
-            className={styles.logoImage}
-            priority
-          />
-          <div className={styles.logoText}>
-            <span className={styles.logoMain}>CAPITAL</span>
-            <span className={styles.logoTag}>BLINDS AND SHADES</span>
-          </div>
-        </Link>
+        <BrandLogo size="sm" href="/" />
 
         {/* EXACT CENTERED LINKS */}
         <div className={styles.links}>

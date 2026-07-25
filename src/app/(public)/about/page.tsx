@@ -118,8 +118,10 @@ function Counter({ target }: { target: string }) {
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      io.disconnect();
+      if (!entry.isIntersecting) {
+        setDisplay("0");
+        return;
+      }
       let start = 0;
       const step = Math.ceil(num / 50);
       const t = setInterval(() => {
@@ -142,17 +144,7 @@ export default function AboutPage() {
   const { scrollYProgress } = useScroll();
   const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
-  /* Scroll reveal observer for elements without framer motion */
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add(styles.inView); }),
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
-    );
-    const t = setTimeout(() => {
-      document.querySelectorAll(`.${styles.sr}`).forEach((el) => io.observe(el));
-    }, 80);
-    return () => { clearTimeout(t); io.disconnect(); };
-  }, []);
+
 
   return (
     <main className={styles.main}>
@@ -214,16 +206,22 @@ export default function AboutPage() {
       {/* ════════════════════════════
           2. STATS STRIP
       ════════════════════════════ */}
-      <div className={`${styles.statsStrip} ${styles.sr}`}>
+      <motion.div 
+        className={styles.statsStrip}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
+        variants={stagger}
+      >
         {stats.map((s, i) => (
-          <div key={i} className={styles.statItem}>
+          <motion.div key={i} variants={fadeUp} className={styles.statItem}>
             <span className={styles.statNum}>
               <Counter target={s.num} />
             </span>
             <span className={styles.statLabel}>{s.label}</span>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* ════════════════════════════
           3. OUR STORY (MASONRY/OVERLAP)
@@ -232,10 +230,10 @@ export default function AboutPage() {
         <div className={styles.wrap}>
 
           <div className={styles.storyHeader}>
-            <motion.span variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className={styles.eyebrow}>
+            <motion.span variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false }} className={styles.eyebrow}>
               The Genesis
             </motion.span>
-            <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className={styles.h2Dark}>
+            <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false }} className={styles.h2Dark}>
               A Journey of <em className={styles.serifItalic}>Design & Precision</em>
             </motion.h2>
           </div>
@@ -248,7 +246,7 @@ export default function AboutPage() {
               variants={stagger}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: false, amount: 0.3 }}
             >
               <motion.div variants={scaleUp} className={styles.collageImgMain}>
                 <Image
@@ -281,7 +279,7 @@ export default function AboutPage() {
               variants={fadeLeft}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: false }}
             >
               <div className={styles.timelineLine} />
 
@@ -327,10 +325,10 @@ export default function AboutPage() {
 
         <div className={styles.wrap}>
           <div className={styles.valuesHead}>
-            <motion.span variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className={styles.eyebrowLight}>
+            <motion.span variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false }} className={styles.eyebrowLight}>
               What We Stand For
             </motion.span>
-            <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className={styles.h2Light}>
+            <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false }} className={styles.h2Light}>
               The Pillars of Our <em className={styles.serifItalic}>Craft.</em>
             </motion.h2>
           </div>
@@ -343,7 +341,7 @@ export default function AboutPage() {
                 initial={{ width: "0%" }}
                 whileInView={{ width: "100%" }}
                 transition={{ duration: 1.8, ease: "easeInOut" }}
-                viewport={{ once: true, amount: 0.5 }}
+                viewport={{ once: false, amount: 0.5 }}
               />
             </div>
             <motion.div
@@ -351,7 +349,7 @@ export default function AboutPage() {
               variants={stagger}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
+              viewport={{ once: false, amount: 0.5 }}
             >
               {values.map((v, i) => (
                 <motion.div
@@ -392,7 +390,7 @@ export default function AboutPage() {
                 className={styles.teamCard}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 0.8, delay: i * 0.2, ease }}
                 whileHover="hover"
               >
@@ -438,7 +436,13 @@ export default function AboutPage() {
       {/* ════════════════════════════
           7. CTA (ELEVATED)
       ════════════════════════════ */}
-      <section className={`${styles.cta} ${styles.sr}`}>
+      <motion.section 
+        className={styles.cta}
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.8, ease }}
+      >
         <div className={styles.ctaBgWrap}>
           <Image
             src="https://images.unsplash.com/photo-1615873968403-89e068629265?q=80&w=2000&auto=format&fit=crop"
@@ -470,7 +474,7 @@ export default function AboutPage() {
             </div>
           </motion.div>
         </div>
-      </section>
+      </motion.section>
 
     </main>
   );

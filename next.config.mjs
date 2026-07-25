@@ -41,6 +41,12 @@ const nextConfig = {
       },
     ],
   },
+  // Allow tunneling services to access Next.js HMR safely
+  allowedDevOrigins: [
+    'transmitted-references-newman-leslie.trycloudflare.com',
+    '7c87ec6caa249137-152-59-40-250.serveousercontent.com',
+    'slimy-bobcats-dance.loca.lt'
+  ],
 };
 
 export default nextConfig;
