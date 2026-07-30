@@ -9,9 +9,10 @@ import { QuoteData } from "./page";
 
 export type LineItem = {
   id: string;
+  name: string;
   description: string;
-  unitCost: number;
-  quantity: number;
+  unitCost: number | '';
+  quantity: number | '';
 };
 
 interface QuoteBuilderProps {
@@ -34,17 +35,24 @@ export default function QuoteBuilder({ quoteReq, onClose }: QuoteBuilderProps) {
   const [phone, setPhone] = useState(existingQuoteData?.phone || quoteReq.phone || "");
 
   // Line Items (prefill from services)
-  const [items, setItems] = useState<LineItem[]>(
-    existingQuoteData?.items || 
-    (quoteReq.serviceRequested && quoteReq.serviceRequested.length > 0 
+  const [items, setItems] = useState<LineItem[]>(() => {
+    if (existingQuoteData?.items) {
+      return existingQuoteData.items.map((item: any) => ({
+        ...item,
+        name: item.name !== undefined ? item.name : item.description,
+        description: item.name !== undefined ? item.description : "",
+      }));
+    }
+    return quoteReq.serviceRequested && quoteReq.serviceRequested.length > 0 
       ? quoteReq.serviceRequested.map((service, index) => ({
           id: index.toString(),
-          description: service,
+          name: service,
+          description: "",
           unitCost: 0,
           quantity: 1
         }))
-      : [{ id: "1", description: "", unitCost: 0, quantity: 1 }])
-  );
+      : [{ id: "1", name: "", description: "", unitCost: 0, quantity: 1 }]
+  });
 
   // Company Details (Pre-filled)
   const [companyName, setCompanyName] = useState("Capital Blinds and Shades");
@@ -65,7 +73,7 @@ export default function QuoteBuilder({ quoteReq, onClose }: QuoteBuilderProps) {
 
   // Calculations
   const calculateSubtotal = () => {
-    return items.reduce((sum, item) => sum + (item.unitCost * item.quantity), 0);
+    return items.reduce((sum, item) => sum + ((Number(item.unitCost) || 0) * (Number(item.quantity) || 0)), 0);
   };
 
   const subtotal = calculateSubtotal();
@@ -75,7 +83,7 @@ export default function QuoteBuilder({ quoteReq, onClose }: QuoteBuilderProps) {
 
   // Handlers
   const handleAddItem = () => {
-    setItems([...items, { id: Date.now().toString(), description: "", unitCost: 0, quantity: 1 }]);
+    setItems([...items, { id: Date.now().toString(), name: "", description: "", unitCost: 0, quantity: 1 }]);
   };
 
   const handleRemoveItem = (id: string) => {
@@ -110,16 +118,28 @@ export default function QuoteBuilder({ quoteReq, onClose }: QuoteBuilderProps) {
   const handleSaveQuote = async () => {
     setIsSaving(true);
     try {
+      const { collection, query, where, getDocs } = await import("firebase/firestore");
+      const { db } = await import("@/lib/firebase");
+      
+      const q = query(collection(db, "quotes"), where("quoteData.quoteNumber", "==", quoteNumber));
+      const querySnapshot = await getDocs(q);
+      
+      const isDuplicate = querySnapshot.docs.some(doc => doc.id !== quoteReq.id);
+      if (isDuplicate) {
+        alert("This Quote Sr. No. is already in use. Please enter a unique number.");
+        setIsSaving(false);
+        return;
+      }
+
       if (quoteReq.id === "new") {
-        const { collection, addDoc } = await import("firebase/firestore");
-        const { db } = await import("@/lib/firebase");
+        const { addDoc } = await import("firebase/firestore");
         await addDoc(collection(db, "quotes"), {
           firstName: contactName.split(' ')[0] || clientName || "Unknown",
           lastName: contactName.split(' ').slice(1).join(' ') || "",
           email: quoteReq.email || "",
           phone: phone || "",
           companyName: clientName,
-          serviceRequested: items.map(i => i.description).filter(Boolean),
+          serviceRequested: items.map(i => i.name).filter(Boolean),
           status: "In Progress",
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -127,9 +147,12 @@ export default function QuoteBuilder({ quoteReq, onClose }: QuoteBuilderProps) {
         });
       } else {
         const { doc, updateDoc } = await import("firebase/firestore");
-        const { db } = await import("@/lib/firebase");
         const quoteRef = doc(db, "quotes", quoteReq.id!);
-        await updateDoc(quoteRef, { quoteData, updatedAt: new Date() });
+        await updateDoc(quoteRef, { 
+          quoteData, 
+          serviceRequested: items.map(i => i.name).filter(Boolean),
+          updatedAt: new Date() 
+        });
       }
       alert("Quote saved successfully!");
       onClose();
@@ -264,7 +287,8 @@ export default function QuoteBuilder({ quoteReq, onClose }: QuoteBuilderProps) {
             <table className={styles.itemsTable}>
               <thead>
                 <tr>
-                  <th className={styles.itemDesc}>Item Description</th>
+                  <th className={styles.itemName}>Items</th>
+                  <th className={styles.itemDesc}>Description</th>
                   <th className={styles.itemNumber}>Unit Cost ($)</th>
                   <th className={styles.itemNumber}>Quantity</th>
                   <th className={styles.itemTotal}>Line Total</th>
@@ -278,9 +302,18 @@ export default function QuoteBuilder({ quoteReq, onClose }: QuoteBuilderProps) {
                       <input 
                         type="text" 
                         className={styles.input} 
+                        value={item.name}
+                        onChange={(e) => handleItemChange(item.id, 'name', e.target.value)}
+                        placeholder="Item..."
+                      />
+                    </td>
+                    <td>
+                      <textarea 
+                        className={styles.textarea} 
+                        style={{ width: '100%', boxSizing: 'border-box' }}
                         value={item.description}
                         onChange={(e) => handleItemChange(item.id, 'description', e.target.value)}
-                        placeholder="Item description..."
+                        placeholder="Description..."
                       />
                     </td>
                     <td>
@@ -288,7 +321,7 @@ export default function QuoteBuilder({ quoteReq, onClose }: QuoteBuilderProps) {
                         type="number" 
                         className={styles.input} 
                         value={item.unitCost}
-                        onChange={(e) => handleItemChange(item.id, 'unitCost', parseFloat(e.target.value) || 0)}
+                        onChange={(e) => handleItemChange(item.id, 'unitCost', e.target.value === '' ? '' : parseFloat(e.target.value))}
                         min="0"
                         step="0.01"
                       />
@@ -298,12 +331,12 @@ export default function QuoteBuilder({ quoteReq, onClose }: QuoteBuilderProps) {
                         type="number" 
                         className={styles.input} 
                         value={item.quantity}
-                        onChange={(e) => handleItemChange(item.id, 'quantity', parseInt(e.target.value) || 0)}
+                        onChange={(e) => handleItemChange(item.id, 'quantity', e.target.value === '' ? '' : parseInt(e.target.value))}
                         min="1"
                       />
                     </td>
                     <td className={styles.itemTotal}>
-                      {formatCurrency(item.unitCost * item.quantity)}
+                      {formatCurrency((Number(item.unitCost) || 0) * (Number(item.quantity) || 0))}
                     </td>
                     <td>
                       <button 

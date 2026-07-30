@@ -112,6 +112,7 @@ export default function QuotePreview({ data, onClose }: QuotePreviewProps) {
               <thead>
                 <tr>
                   <th className={styles.colItem}>ITEM</th>
+                  <th className={styles.colDesc}>DESCRIPTION</th>
                   <th className={styles.colUnitCost}>UNIT COST</th>
                   <th className={styles.colQty}>QUANTITY</th>
                   <th className={styles.colTotal}>LINE TOTAL</th>
@@ -120,19 +121,11 @@ export default function QuotePreview({ data, onClose }: QuotePreviewProps) {
               <tbody>
                 {data.items.map((item, index) => (
                   <tr key={index}>
-                    <td>{item.description}</td>
-                    <td>{formatCurrency(item.unitCost)}</td>
+                    <td style={{ textAlign: "left" }}>{item.name}</td>
+                    <td style={{ whiteSpace: "pre-wrap", textAlign: "left" }}>{item.description}</td>
+                    <td>{formatCurrency(Number(item.unitCost) || 0)}</td>
                     <td>{item.quantity}</td>
-                    <td>{formatCurrency(item.unitCost * item.quantity)}</td>
-                  </tr>
-                ))}
-                {/* Fill empty rows to make it look like paper */}
-                {Array.from({ length: Math.max(0, 5 - data.items.length) }).map((_, i) => (
-                  <tr key={`empty-${i}`}>
-                    <td>&nbsp;</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{formatCurrency((Number(item.unitCost) || 0) * (Number(item.quantity) || 0))}</td>
                   </tr>
                 ))}
               </tbody>

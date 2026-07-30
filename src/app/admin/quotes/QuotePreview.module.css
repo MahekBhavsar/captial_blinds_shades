@@ -268,7 +268,8 @@
   text-align: center;
 }
 
-.itemsTable th.colItem {
+.itemsTable th.colItem,
+.itemsTable th.colDesc {
   text-align: left;
 }
 
@@ -337,20 +338,21 @@
 .bottomSection {
   display: flex;
   padding: 0 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
+  margin-top: auto;
 }
 
 .bankDetails {
   flex: 1.5;
   border: 1.5px solid #0a192f;
   border-radius: 8px;
-  padding: 1.25rem;
+  padding: 0.8rem;
   position: relative;
   margin-right: 2rem;
 }
 
 .bankHeader {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   color: #0a192f;
   font-size: 0.9rem;
 }
@@ -382,7 +384,7 @@
 }
 
 .bankTable td {
-  padding: 0.25rem 0;
+  padding: 0.15rem 0;
 }
 
 .bankTable td:first-child {
@@ -391,7 +393,7 @@
 }
 
 .bankFooter {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   font-size: 0.8rem;
   color: #334155;
 }
@@ -427,7 +429,7 @@
 }
 
 .footer {
-  margin-top: auto;
+  margin-top: 0;
   display: flex;
   height: 100px;
 }
@@ -574,6 +576,8 @@
     padding: 1rem 0 0 0 !important;
     box-sizing: border-box !important;
     overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .billToSection {
@@ -589,6 +593,12 @@
   }
 
   .bottomSection {
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 1.5rem !important;
+    margin-top: auto !important;
+  }
+
+  .footer {
+    margin-top: 0 !important;
+    page-break-inside: avoid !important;
   }
 }

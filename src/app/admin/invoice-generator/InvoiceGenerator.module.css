@@ -164,8 +164,12 @@
   margin-bottom: 0;
 }
 
+.itemName {
+  width: 20%;
+}
+
 .itemDesc {
-  width: 40%;
+  width: 30%;
 }
 
 .itemNumber {
