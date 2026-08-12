@@ -7,7 +7,7 @@ export const size = { width: 256, height: 256 }
 export const contentType = 'image/png'
 
 export default function Icon() {
-  const logoPath = join(process.cwd(), 'public', 'Capital-Blend&Shades-logo.jpg.jpeg')
+  const logoPath = join(process.cwd(), 'public', 'logo.jpeg')
   const logoData = readFileSync(logoPath)
   const base64 = `data:image/jpeg;base64,${logoData.toString('base64')}`
 

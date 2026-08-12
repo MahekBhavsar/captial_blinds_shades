@@ -47,7 +47,7 @@ export default function InvoicePreview({ data, onClose }: InvoicePreviewProps) {
               {/* Left Column */}
               <div className={styles.leftColumn}>
                 <div className={styles.logoSection}>
-                   <img src="/logo.png" alt="Logo" className={styles.logo} />
+                   <img src="/logo.jpeg" alt="Logo" className={styles.logo} />
                 </div>
                 
                 {/* Bill To */}

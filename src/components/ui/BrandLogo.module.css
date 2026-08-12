@@ -17,13 +17,12 @@
   display: flex;
   align-items: center;
   animation: logoFloat 3.5s ease-in-out infinite;
+  mix-blend-mode: multiply;
 }
 
 .logoImg {
   object-fit: contain;
-  border-radius: 50%;
   display: block;
-  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.18));
   transition: transform 0.35s ease;
 }
 

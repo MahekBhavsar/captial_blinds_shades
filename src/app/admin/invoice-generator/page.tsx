@@ -62,7 +62,7 @@ export default function InvoiceGenerator() {
   const [companyABN, setCompanyABN] = useState("65 145 853 604");
 
   // Payment Details (Pre-filled)
-  const [accountName, setAccountName] = useState("Capital Blinds and Shades");
+  const [accountName, setAccountName] = useState("Eternal Pty. Ltd.");
   const [bsb, setBsb] = useState("062 915");
   const [accountNumber, setAccountNumber] = useState("10508894");
   const [paymentTerms, setPaymentTerms] = useState("Payment is due within 7 days from the invoice date.\n\nThank you for your business!\nWe appreciate your support.");

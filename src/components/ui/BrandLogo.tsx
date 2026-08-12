@@ -16,7 +16,7 @@ export function BrandLogo({ size = "md", href = "/" }: BrandLogoProps) {
       {/* Logo image — floats gently */}
       <span className={styles.logoWrap}>
         <Image
-          src="/logo.png"
+          src="/logo.jpeg"
           alt="Capital Blinds and Shades logo"
           width={56}
           height={56}
